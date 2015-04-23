@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1C978058-5930-43E2-BF30-17BB038910FA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>neteq</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\libs\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\libs\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WEBRTC_SVNREVISION="Unavailable(issue687)";_WIN32_WINNT=0x0602;WINVER=0x0602;WIN32;_WINDOWS;NOMINMAX;PSAPI_VERSION=1;_CRT_RAND_S;CERT_CHAIN_PARA_HAS_EXTRA_FIELDS;WIN32_LEAN_AND_MEAN;_ATL_NO_OPENGL;_HAS_EXCEPTIONS=0;_SECURE_ATL;CHROMIUM_BUILD;TOOLKIT_VIEWS=1;USE_LIBJPEG_TURBO=1;ENABLE_ONE_CLICK_SIGNIN;ENABLE_REMOTING=1;ENABLE_WEBRTC=1;ENABLE_PEPPER_CDMS;ENABLE_CONFIGURATION_POLICY;ENABLE_INPUT_SPEECH;ENABLE_NOTIFICATIONS;ENABLE_GPU=1;ENABLE_EGLIMAGE=1;__STD_C;_CRT_SECURE_NO_DEPRECATE;_SCL_SECURE_NO_DEPRECATE;NTDDI_VERSION=0x06020000;ENABLE_TASK_MANAGER=1;ENABLE_EXTENSIONS=1;ENABLE_PLUGIN_INSTALLATION=1;ENABLE_PLUGINS=1;ENABLE_SESSION_SERVICE=1;ENABLE_THEMES=1;ENABLE_AUTOFILL_DIALOG=1;ENABLE_BACKGROUND=1;ENABLE_AUTOMATION=1;ENABLE_GOOGLE_NOW=1;ENABLE_LANGUAGE_DETECTION=1;ENABLE_PRINTING=1;ENABLE_CAPTIVE_PORTAL_DETECTION=1;ENABLE_APP_LIST=1;ENABLE_SETTINGS_APP=1;ENABLE_MANAGED_USERS=1;WEBRTC_WIN;NETEQ_VOICEENGINE_CODECS;SCRATCH;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;NDEBUG;NVALGRIND;DYNAMIC_ANNOTATIONS_ENABLED=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\;..\..\..\..\utile;..\..\..\audio_coding\neteq\interface;..\..\..\common_audio\signal_processing\include;..\..\..\audio_coding\codecs\cng\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\;..\..\..\..\utile;..\..\..\audio_coding\neteq\interface;..\..\..\common_audio\signal_processing\include;..\..\..\audio_coding\codecs\cng\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\audio_coding\neteq\automode.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\buffer_stats.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\codec_db.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\codec_db_defines.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\delay_logging.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\dsp.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\dsp_helpfunctions.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\dtmf_buffer.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\dtmf_tonegen.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\interface\webrtc_neteq.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\interface\webrtc_neteq_help_macros.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\interface\webrtc_neteq_internal.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\mcu.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\mcu_dsp_common.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\neteq_defines.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\neteq_error_codes.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\neteq_statistics.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\packet_buffer.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\rtcp.h" />
+    <ClInclude Include="..\..\..\audio_coding\neteq\rtp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\audio_coding\neteq\accelerate.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\automode.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\bgn_update.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\bufstats_decision.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\cng_internal.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\codec_db.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\correlator.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\dsp.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\dsp_helpfunctions.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\dtmf_buffer.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\dtmf_tonegen.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\expand.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\mcu_address_init.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\mcu_dsp_common.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\mcu_reset.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\merge.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\min_distortion.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\mix_voice_unvoice.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\mute_signal.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\normal.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\packet_buffer.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\peak_detection.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\preemptive_expand.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\random_vector.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\recin.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\recout.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\rtcp.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\rtp.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\set_fs.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\signal_mcu.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\split_and_insert.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\unmute_signal.c" />
+    <ClCompile Include="..\..\..\audio_coding\neteq\webrtc_neteq.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

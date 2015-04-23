@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "voe", "voe.vcxproj", "{66DE7844-F71E-4CA1-884C-D9574E2AE01D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_conf_mixer", "audio_conf_mixer\audio_conf_mixer.vcxproj", "{17B5140B-269A-41E2-BA7D-1D303C9ADF03}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_processing", "audio_processing\audio_processing.vcxproj", "{2356440C-877F-4F0E-817A-0CEB4BFE441A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_device", "audio_device\audio_device.vcxproj", "{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common_audio", "common_audio\common_audio.vcxproj", "{6AA6AD89-7FF7-4ADA-B280-9706B91560E1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "audio_coding", "audio_coding\audio_coding.vcxproj", "{E951F90F-6C2B-4103-90DA-FDA9F372960C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66DE7844-F71E-4CA1-884C-D9574E2AE01D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{66DE7844-F71E-4CA1-884C-D9574E2AE01D}.Debug|Win32.Build.0 = Debug|Win32
+		{66DE7844-F71E-4CA1-884C-D9574E2AE01D}.Release|Win32.ActiveCfg = Release|Win32
+		{66DE7844-F71E-4CA1-884C-D9574E2AE01D}.Release|Win32.Build.0 = Release|Win32
+		{17B5140B-269A-41E2-BA7D-1D303C9ADF03}.Debug|Win32.ActiveCfg = Debug|Win32
+		{17B5140B-269A-41E2-BA7D-1D303C9ADF03}.Debug|Win32.Build.0 = Debug|Win32
+		{17B5140B-269A-41E2-BA7D-1D303C9ADF03}.Release|Win32.ActiveCfg = Release|Win32
+		{17B5140B-269A-41E2-BA7D-1D303C9ADF03}.Release|Win32.Build.0 = Release|Win32
+		{2356440C-877F-4F0E-817A-0CEB4BFE441A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2356440C-877F-4F0E-817A-0CEB4BFE441A}.Debug|Win32.Build.0 = Debug|Win32
+		{2356440C-877F-4F0E-817A-0CEB4BFE441A}.Release|Win32.ActiveCfg = Release|Win32
+		{2356440C-877F-4F0E-817A-0CEB4BFE441A}.Release|Win32.Build.0 = Release|Win32
+		{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37}.Debug|Win32.Build.0 = Debug|Win32
+		{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37}.Release|Win32.ActiveCfg = Release|Win32
+		{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37}.Release|Win32.Build.0 = Release|Win32
+		{6AA6AD89-7FF7-4ADA-B280-9706B91560E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6AA6AD89-7FF7-4ADA-B280-9706B91560E1}.Debug|Win32.Build.0 = Debug|Win32
+		{6AA6AD89-7FF7-4ADA-B280-9706B91560E1}.Release|Win32.ActiveCfg = Release|Win32
+		{6AA6AD89-7FF7-4ADA-B280-9706B91560E1}.Release|Win32.Build.0 = Release|Win32
+		{E951F90F-6C2B-4103-90DA-FDA9F372960C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E951F90F-6C2B-4103-90DA-FDA9F372960C}.Debug|Win32.Build.0 = Debug|Win32
+		{E951F90F-6C2B-4103-90DA-FDA9F372960C}.Release|Win32.ActiveCfg = Release|Win32
+		{E951F90F-6C2B-4103-90DA-FDA9F372960C}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{17B5140B-269A-41E2-BA7D-1D303C9ADF03} = {6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}
+		{2356440C-877F-4F0E-817A-0CEB4BFE441A} = {6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}
+		{A0A38367-FA38-4BE7-8EEA-A6D2E361CF37} = {6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}
+		{6AA6AD89-7FF7-4ADA-B280-9706B91560E1} = {6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}
+		{E951F90F-6C2B-4103-90DA-FDA9F372960C} = {6F435E90-AA47-40EF-9C83-BE4FD42BA9F7}
+	EndGlobalSection
+EndGlobal

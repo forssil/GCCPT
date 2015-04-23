@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A297A2D4-F2B4-43E6-8D38-3FBC6FF2D490}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>webrtc_utile</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\..\libs\$(Configuration)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\..\..\..\libs\$(Configuration)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WEBRTC_UTILE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\;..\..\..\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;WEBRTC_UTILE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\;..\..\..\..\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\interface\aligned_malloc.h" />
+    <ClInclude Include="..\..\..\..\interface\asm_defines.h" />
+    <ClInclude Include="..\..\..\..\interface\atomic32.h" />
+    <ClInclude Include="..\..\..\..\interface\clock.h" />
+    <ClInclude Include="..\..\..\..\interface\compile_assert.h" />
+    <ClInclude Include="..\..\..\..\interface\condition_variable_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\constructor_magic.h" />
+    <ClInclude Include="..\..\..\..\interface\cpu_features_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\cpu_info.h" />
+    <ClInclude Include="..\..\..\..\interface\critical_section_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\data_log.h" />
+    <ClInclude Include="..\..\..\..\interface\data_log_c.h" />
+    <ClInclude Include="..\..\..\..\interface\data_log_impl.h" />
+    <ClInclude Include="..\..\..\..\interface\event_tracer.h" />
+    <ClInclude Include="..\..\..\..\interface\event_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\file_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\fix_interlocked_exchange_pointer_win.h" />
+    <ClInclude Include="..\..\..\..\interface\list_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\logging.h" />
+    <ClInclude Include="..\..\..\..\interface\map_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\process_thread.h" />
+    <ClInclude Include="..\..\..\..\interface\ref_count.h" />
+    <ClInclude Include="..\..\..\..\interface\rw_lock_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\scoped_ptr.h" />
+    <ClInclude Include="..\..\..\..\interface\scoped_refptr.h" />
+    <ClInclude Include="..\..\..\..\interface\sleep.h" />
+    <ClInclude Include="..\..\..\..\interface\sort.h" />
+    <ClInclude Include="..\..\..\..\interface\static_instance.h" />
+    <ClInclude Include="..\..\..\..\interface\stringize_macros.h" />
+    <ClInclude Include="..\..\..\..\interface\thread_wrapper.h" />
+    <ClInclude Include="..\..\..\..\interface\tick_util.h" />
+    <ClInclude Include="..\..\..\..\interface\trace.h" />
+    <ClInclude Include="..\..\..\..\interface\trace_event.h" />
+    <ClInclude Include="..\..\..\..\source\file_impl.h" />
+    <ClInclude Include="..\..\..\..\source\process_thread_impl.h" />
+    <ClInclude Include="..\..\..\..\source\rw_lock_generic.h" />
+    <ClInclude Include="..\..\..\..\source\trace_impl.h" />
+    <ClInclude Include="..\..\..\..\source\win\condition_variable_event_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\condition_variable_native_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\critical_section_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\event_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\rw_lock_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\thread_win.h" />
+    <ClInclude Include="..\..\..\..\source\win\trace_win.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\aligned_malloc.cc" />
+    <ClCompile Include="..\..\..\..\source\atomic32_win.cc" />
+    <ClCompile Include="..\..\..\..\source\clock.cc" />
+    <ClCompile Include="..\..\..\..\source\condition_variable.cc" />
+    <ClCompile Include="..\..\..\..\source\cpu_features.cc" />
+    <ClCompile Include="..\..\..\..\source\cpu_info.cc" />
+    <ClCompile Include="..\..\..\..\source\critical_section.cc" />
+    <ClCompile Include="..\..\..\..\source\data_log_no_op.cc" />
+    <ClCompile Include="..\..\..\..\source\event.cc" />
+    <ClCompile Include="..\..\..\..\source\event_tracer.cc" />
+    <ClCompile Include="..\..\..\..\source\file_impl.cc" />
+    <ClCompile Include="..\..\..\..\source\list_no_stl.cc" />
+    <ClCompile Include="..\..\..\..\source\logging_no_op.cc" />
+    <ClCompile Include="..\..\..\..\source\map.cc" />
+    <ClCompile Include="..\..\..\..\source\process_thread_impl.cc" />
+    <ClCompile Include="..\..\..\..\source\rw_lock.cc" />
+    <ClCompile Include="..\..\..\..\source\rw_lock_generic.cc" />
+    <ClCompile Include="..\..\..\..\source\sleep.cc" />
+    <ClCompile Include="..\..\..\..\source\sort.cc" />
+    <ClCompile Include="..\..\..\..\source\thread.cc" />
+    <ClCompile Include="..\..\..\..\source\tick_util.cc" />
+    <ClCompile Include="..\..\..\..\source\trace_impl.cc" />
+    <ClCompile Include="..\..\..\..\source\win\condition_variable_event_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\condition_variable_native_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\critical_section_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\event_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\rw_lock_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\thread_win.cc" />
+    <ClCompile Include="..\..\..\..\source\win\trace_win.cc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

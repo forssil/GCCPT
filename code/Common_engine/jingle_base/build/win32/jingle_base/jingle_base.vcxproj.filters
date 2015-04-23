@@ -1,0 +1,999 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\base">
+      <UniqueIdentifier>{eaee3f6b-e436-4697-95a0-5c63352e9e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xmpp">
+      <UniqueIdentifier>{be84844d-8997-4346-9b13-2b87de721a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\xmllite">
+      <UniqueIdentifier>{caf044de-e08f-4e3a-8399-a34ed919d773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\base">
+      <UniqueIdentifier>{f33452ce-cc91-4a66-90c8-5a1ccdfbcdb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\xmpp">
+      <UniqueIdentifier>{9ac98cc9-72f3-4bb9-b2d3-5772a7ea140d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\xmllite">
+      <UniqueIdentifier>{3a913f97-7f4b-4b7b-bad5-5bd9bd26834a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\base\asyncfile.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\asynchttprequest.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\asyncsocket.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\asynctcpsocket.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\asyncudpsocket.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\autodetectproxy.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\bandwidthsmoother.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\base64.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\bytebuffer.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\checks.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\common.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\cpumonitor.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\crc32.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\dbus.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\diskcache.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\diskcache_win32.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\event.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\filelock.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\fileutils.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\firewallsocketserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\flags.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\helpers.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\host.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\httpbase.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\httpclient.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\httpcommon.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\httprequest.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\httpserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\ifaddrs-android.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\ipaddress.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\logging.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\md5.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\messagedigest.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\messagehandler.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\messagequeue.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\multipart.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\natserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\natsocketfactory.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\nattypes.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\nethelpers.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\network.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\nssidentity.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\nssstreamadapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\openssladapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\openssldigest.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\opensslidentity.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\opensslstreamadapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\optionsfile.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\pathutils.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\physicalsocketserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\profiler.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\proxydetect.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\proxyinfo.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\proxyserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\ratelimiter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\ratetracker.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\schanneladapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sha1.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sharedexclusivelock.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\signalthread.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\socketadapters.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\socketaddress.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\socketaddresspair.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\socketpool.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\socketstream.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\ssladapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sslidentity.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sslsocketfactory.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sslstreamadapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\sslstreamadapterhelper.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\stream.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\stringencode.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\stringutils.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\systeminfo.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\task.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\taskparent.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\taskrunner.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\testclient.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\thread.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\timeutils.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\timing.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\transformadapter.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\urlencode.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\versionparsing.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\virtualsocketserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32filesystem.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32regkey.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32securityerrors.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32socketinit.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32socketserver.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32window.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\win32windowpicker.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\winfirewall.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\winping.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\base\worker.cc">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\chatroommoduleimpl.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\constants.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\discoitemsquerytask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\hangoutpubsubclient.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\iqtask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\jid.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\moduleimpl.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\mucroomconfigtask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\mucroomdiscoverytask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\mucroomlookuptask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\mucroomuniquehangoutidtask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\pingtask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\presenceouttask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\presencereceivetask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\presencestatus.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\pubsubclient.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\pubsubtasks.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\pubsub_task.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\receivetask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\rostermoduleimpl.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\saslmechanism.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppauth.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppclient.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppengineimpl.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppengineimpl_iq.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmpplogintask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmpppump.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppsocket.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppstanzaparser.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmpptask.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmpp\xmppthread.cc">
+      <Filter>Source Files\xmpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\qname.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlbuilder.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlconstants.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlelement.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlnsstack.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlparser.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\xmllite\xmlprinter.cc">
+      <Filter>Source Files\xmllite</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\xmllite\xmlbuilder.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\qname.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\xmlconstants.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\xmlelement.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\xmlnsstack.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\xmlparser.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmllite\xmlprinter.h">
+      <Filter>Header Files\xmllite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asyncfile.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asynchttprequest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asyncpacketsocket.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asyncsocket.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asynctcpsocket.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\asyncudpsocket.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\atomicops.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\autodetectproxy.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\bandwidthsmoother.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\base64.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\basicdefs.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\basictypes.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\bind.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\buffer.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\bytebuffer.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\byteorder.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\checks.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\common.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\constructormagic.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\cpumonitor.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\crc32.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\criticalsection.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\cryptstring.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\dbus.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\diskcache.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\diskcache_win32.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\event.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\fakecpumonitor.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\fakenetwork.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\fakesslidentity.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\faketaskrunner.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\filelock.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\fileutils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\firewallsocketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\flags.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\gunit_prod.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\helpers.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\host.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httpbase.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httpclient.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httpcommon-inl.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httpcommon.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httprequest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\httpserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\ifaddrs-android.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\ipaddress.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\linked_ptr.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\logging.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\mathutils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\md5.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\md5digest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\messagedigest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\messagehandler.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\messagequeue.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\multipart.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\natserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\natsocketfactory.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\nattypes.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\nethelpers.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\network.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\nssidentity.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\nssstreamadapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\nullsocketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\openssladapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\openssldigest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\opensslidentity.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\opensslstreamadapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\optionsfile.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\pathutils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\physicalsocketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\profiler.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\proxydetect.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\proxyinfo.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\proxyserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\ratelimiter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\ratetracker.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\refcount.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\referencecountedsingletonfactory.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\schanneladapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\rollingaccumulator.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\scoped_ptr.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\scoped_ref_ptr.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sec_buffer.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sha1.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sha1digest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sharedexclusivelock.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\signalthread.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sigslotrepeater.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sigslot.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socket.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketadapters.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketaddress.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketaddresspair.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketfactory.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketpool.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\socketstream.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\ssladapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslconfig.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslfingerprint.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslidentity.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslroots.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslsocketfactory.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslstreamadapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\sslstreamadapterhelper.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\stream.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\stringdigest.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\stringencode.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\stringutils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\systeminfo.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\task.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\taskparent.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\taskrunner.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\testbase64.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\testclient.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\testechoserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\thread.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\timeutils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\timing.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\transformadapter.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\urlencode.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\versionparsing.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\virtualsocketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32filesystem.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32regkey.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32socketinit.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32socketserver.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32toolhelp.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32window.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\win32windowpicker.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\window.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\windowpicker.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\windowpickerfactory.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\winfirewall.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\winping.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\worker.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\asyncsocket.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\chatroommodule.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\constants.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\discoitemsquerytask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\fakexmppclient.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\hangoutpubsubclient.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\iqtask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\jid.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\module.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\moduleimpl.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\mucroomconfigtask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\mucroomdiscoverytask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\mucroomlookuptask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\mucroomuniquehangoutidtask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\pingtask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\plainsaslhandler.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\presenceouttask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\presencereceivetask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\presencestatus.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\prexmppauth.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\pubsub_task.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\pubsubclient.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\pubsubtasks.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\receivetask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\rostermodule.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\rostermoduleimpl.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\saslcookiemechanism.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\saslhandler.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\saslmechanism.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\saslplainmechanism.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppauth.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppclient.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppengine.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppclientsettings.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppengineimpl.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmpplogintask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmpppump.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppsocket.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppstanzaparser.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmpptask.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\xmpp\xmppthread.h">
+      <Filter>Header Files\xmpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\base\protocolwrap.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,39 @@
+﻿Build started 2014/11/10 10:24:44.
+     1>Project "E:\work\C++\Common_audio_engine\test\build\win32\testsupport\testsupport.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\testsupport.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\testsupport.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\..\..\ /I..\..\..\..\utile /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\..\testsupport\fileutils.cc ..\..\..\testsupport\frame_reader.cc ..\..\..\testsupport\frame_writer.cc ..\..\..\testsupport\packet_reader.cc ..\..\..\testsupport\perf_test.cc ..\..\..\testsupport\trace_to_stderr.cc
+         trace_to_stderr.cc
+         perf_test.cc
+         packet_reader.cc
+         frame_writer.cc
+     1>e:\work\c++\common_audio_engine\test\testsupport\frame_writer.cc(35): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         frame_reader.cc
+     1>e:\work\c++\common_audio_engine\test\testsupport\frame_reader.cc(37): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         fileutils.cc
+     1>e:\work\c++\common_audio_engine\test\testsupport\fileutils.cc(72): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(188) : see declaration of 'strncpy'
+     1>e:\work\c++\common_audio_engine\test\testsupport\fileutils.cc(207): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"..\..\..\..\libs\Debug\testsupport.lib" /NOLOGO Debug\fileutils.obj
+         Debug\frame_reader.obj
+         Debug\frame_writer.obj
+         Debug\packet_reader.obj
+         Debug\perf_test.obj
+         Debug\trace_to_stderr.obj
+         testsupport.vcxproj -> E:\work\C++\Common_audio_engine\test\build\win32\testsupport\..\..\..\..\libs\Debug\testsupport.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\testsupport.unsuccessfulbuild".
+         Touching "Debug\testsupport.lastbuildstate".
+     1>Done Building Project "E:\work\C++\Common_audio_engine\test\build\win32\testsupport\testsupport.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.42

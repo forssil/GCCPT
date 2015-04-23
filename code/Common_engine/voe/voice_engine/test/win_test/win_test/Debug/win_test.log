@@ -1,0 +1,20 @@
+﻿生成启动时间为 8/23/2013 6:45:29 PM。
+     1>项目“E:\code\Webrtc\trunk\third_party\webrtc\voice_engine\test\win_test\win_test\win_test.vcxproj”在节点 2 上(build 个目标)。
+     1>PrepareForBuild:
+         正在创建目录“E:\code\Webrtc\trunk\third_party\webrtc\voice_engine\Debug\”。
+       InitializeBuildStatus:
+         正在创建“Debug\win_test.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\win_test.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\stdafx.cc ..\WinTest.cc ..\WinTestDlg.cc
+         WinTestDlg.cc
+     1>e:\code\webrtc\trunk\third_party\webrtc\voice_engine\test\win_test\wintestdlg.cc(3589): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "StdAfx.h"”?
+         WinTest.cc
+     1>e:\code\webrtc\trunk\third_party\webrtc\voice_engine\test\win_test\wintest.cc(76): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "StdAfx.h"”?
+         stdafx.cc
+     1>e:\code\webrtc\trunk\third_party\webrtc\voice_engine\test\win_test\stdafx.cc(16): fatal error C1010: 在查找预编译头时遇到意外的文件结尾。是否忘记了向源中添加“#include "StdAfx.h"”?
+         正在生成代码...
+     1>已完成生成项目“E:\code\Webrtc\trunk\third_party\webrtc\voice_engine\test\win_test\win_test\win_test.vcxproj”(build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:02.52
