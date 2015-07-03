@@ -1,3 +1,5 @@
 1. write down your producte introduce 3.27
 2. techonology points  3.28
 3
+
+部分免费的云平台进行开发，如百度应用引擎BAE（http://developer.baidu.com/bae），新浪云平台SAE（http://sae.sina.com.cn/）。
