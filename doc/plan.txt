@@ -3,3 +3,5 @@
 3
 
 部分免费的云平台进行开发，如百度应用引擎BAE（http://developer.baidu.com/bae），新浪云平台SAE（http://sae.sina.com.cn/）。
+
+http://www.chineseldc.org/resource_list.php?begin=20&count=20
