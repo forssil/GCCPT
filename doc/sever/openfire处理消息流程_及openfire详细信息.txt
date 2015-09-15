@@ -1,0 +1,2475 @@
+ XMPP  介绍 Extensible Messaging and Presence Protocol简单的来讲它就是一个发送接收处理消息
+的协议但是这个协议发送的消息既不是二进制的东东也不是字符串而是XML。正是
+因为使用了XML作为消息传递的中介Extensible 才谈的上不是么  IM Instant Messenger及时通信软件就是大家使用的QQ、MSN Messenger和Gtalk等等。
+其中Gtalk 就是基于XMPP 协议的一个实现其他的则不是。当前IM 几乎作为每个上网
+者必然使用的工具在国外的大型企业中有一些企业级的IM应用但是其商业价值还没完
+全发挥出来。设想既然XMPP 协议是一个公开的协议那么每个企业都可以利用它来开发
+适合本身企业工作提高自身生产效率的IM甚至你还可以在网络游戏中集成这种通信
+软件不但让你可以边游戏边聊天也可以开发出适合游戏本身的IM 应用比如说一些游
+戏关键场景提醒功能团队语音交流等等都可以基于IM来实现。 Spark Smack 和 Openfire 开源界总是有许多有趣的东东这三个合起来就是一个完整的XMPP IM 实现。包括服
+务器端——Openfire客户端——SparkXMPP 传输协议的实现——Smack记住XMPP
+是一个协议协议是需要实现的Smack起到的就是这样的一个作用。三者都是基于Java 语
+言的实现。 
+Spark 提供了客户端一个基本的实现并提出了一个很好的插件架构这对于开发者来
+说不能不说是一个福音。我强烈建议基于插件方式来实现你新增加的功能而不是去改它的
+源代码这样有利于你项目架构把原始项目的影响降到最低。 
+Openfire 是基于XMPP 协议的IM 的服务器端的一个实现虽然当两个用户连接后
+可以通过点对点的方式来发送消息但是用户还是需要连接到服务器来获取一些连接信息和
+通信信息的所以服务器端是必须要实现的。Openfire 也提供了一些基本功能但真的很
+基本的庆幸的是它也提供插件的扩展像Spark 一样同样强烈建议使用插件扩展的
+方式来增加新的功能而不是修改人家的源代码。 
+Smack 是一个XMPP 协议的Java 实现提供一套可扩展的API不过有些时候你还
+是不得不使用自己定制发送的XML 文件内容的方式来实现自己的功能 
+ 
+下图展示了三者之间的关系  
+ 
+从图上可以了解到client 端和server端都可以通过插件的方式来进行扩展smack是
+二者传递数据的媒介。 Apache MINA Openfire的通信处理基于Apache MINA框架实现。Apache MINA是一个网络应用程序
+框架用来帮助用户简单地开发高性能和高可靠性的网络应用程序。它提供了一个通过Java 
+NIO在不同的传输例如TCP/IP和UDP/IP上抽象的事件驱动的异步API。  
+  Apache MINA 也称为:  
+  ● NIO 框架库  
+  ● 客户端服务器框架库  
+  ● 一个网络套接字库  
+  MINA虽然简单但是仍然提供了全功能的网络应用程序框架  
+  ● 为不同的传输类型提供了统一的API:  
+  ○ 通过Java NIO提供TCP/IP 和 UDP/IP支持  
+  ○ 通过RXTX提供串口通讯(RS232)  
+  ○ In-VM管道通讯  
+  ○ 你能实现你自己的API!  
+  ● 过滤器作为一个扩展特性; 类似Servlet过滤器  
+  ● 低级和高级的API:  
+  ○ 低级: 使用字节缓存(ByteBuffers)  
+  ○ 高级: 使用用户定义的消息对象(objects)和编码(codecs)  
+  ● 高度定制化线程模型:  
+  ○ 单线程  
+  ○ 一个线程池  
+  ○ 一个以上的线程池(也就是SEDA)    ● 使用Java 5 SSL引擎提供沙盒(Out-of-the-box) SSL ? TLS ? StartTLS支持  
+  ● 超载保护和传输流量控制  
+  ● 利用模拟对象进行单元测试  
+  ● JMX管理能力  
+  ● 通过StreamIoHandler提供基于流的I/O支持  
+  ● 和知名的容器(例如PicoContainer、Spring)集成  
+  ● 从Netty平滑的迁移到MINA Netty是MINA的前辈。 命名规则 Openfire中常见的类名后缀命名包括Starter、Plugin、Listener、
+Dispatcher、Handler、Manager、Provider通常情况下这些命名类包括如下
+意义 XXStarter  系统启动类如org.jivesoftware.openfire.starter.ServerStarter调
+用其start()方法可启动系统应用。 XXListener 业务的最终处理类。  XXDispatcher 调度类其中有很多关键方法如addListener()以组合的方式为类内定义的静态Set<XXListener>实例添加XXListener对象。以便调用
+dispatchEvent(String property, EventType eventType, Map<String, Object> 
+params)方法遍历处理Set集中的XXListener对象通过调用XXListener对象
+的各实际方法完成实际业务。 
+ XXPlugin 实现Plugin接口的插件类,需实现initializePlugin(PluginManager 
+manager, File pluginDirectory)方法和destroyPlugin()方法。在其初始化方
+法 中 调 用Dispatcher实 现 类 的addListener()方 法 如
+PropertyEventDispatcher.addListener(this)。 
+ XXProvider  实现面向接口编程方式的接口类通过反射机制创建具体实现类的对象反
+射类名配置在ofproperty表对应的记录propvalue属性中。若没有相关配置
+则调用默认实现类默认实现类类名命名规则为DefaultXXProvider。 
+ XXHandler  实 际 处 理 类  以ConnectionHandler为 例  在
+org.jivesoftware.openfire.spi. ConnectionManagerImpl类 的
+startClientSSLListeners(String localIPAddress)方法中有这样一段代码 
+sslSocketAcceptor.bind(new InetSocketAddress(bindInterface, port), new 
+ClientConnectionHandler(serverName));其中bind方法的第二个参数是新创建
+的一个ClientConnectionHandler的实例而它就是ConnectionHandler的一个子
+类。 系统配置项 Openfire的系统配置项采用文件结合数据库表的方式配置也有部分默认配
+置项通过Java硬编码方式配置如org.jivesoftware.openfire. 
+ConnectionManager接口类中定义的DEFAULT_PORT、DEFAULT_SSL_PORT、
+DEFAULT_COMPONENT_PORT等Openfire中比较重要的配置位置包括 
+一、 src/conf目录下的openfire.xml配置文件。该配置文件为系统核心配
+置文件。在第一次启动Openfire并通过管理控制台完成安装配置后会往该
+配置文件中填入相应的配置信息。 
+二、 plugin.xml配置文件。该配置文件为各插件包下的核心配置文件由它
+确定插件核心处理类和相应页面插件的展现等。配置项及含义详见官方插件
+开发说明部分。 
+三、 web.xml和web-custom.xml配置文件。用于配置servlet和用户自定义
+servlet(插件页面用放在插件对应目录下)。 
+四、 ofproperty中的各条记录该表中包括两个字段name和propvalue分
+别代表配置项名和配置项值。 
+ 系统启动流程  系统启动时调用ServerStarter类中的start()方法通过反射加载
+org.jivesoftware.openfire.XMPPServer类文件创建实例时调用其构造函数
+在其构造函数中调用其start()方法实际启动服务应用程序。Start()方法中首
+先调用verifyDataSource()方法验证并确保数据库可以访问然后会调用                loadModules();initModules();startModules();方法来对Module接口的实现类的
+各子类进行操作依次完成模块的加载、初始化和启动操作。loadModules()方法中会调用
+loadModule(String module)方法通过反射加载各模块类参数字符串module为对应的
+模块核心处理类的类名,如AdHocCommandHandler。现以AdHocCommandHandler为例对
+接下来的处理流程进行说明。通过loadModule创建AdHocCommandHandler类实例时调用
+其构造函数在构造函数中初始化了其私有AdHocCommandManager对象。在initModules()
+时调用AdHocCommandHandler实例的initialize(XMPPServer server)方法对其私有
+属性对象进行初始化。然后调用start()方法调用addDefaultCommands方法添加命令并
+启动命令通过调用startCommand(AdHocCommand command)方法实现。 网络处理 
+消息监听服务 SSL等 监 听 服 务 的 调 度 在ConnectionManagerImpl类 中 实 现 。ConnectionManagerImpl.createClientSSLListeners()方法启动SSL监听  消息封装 信息处理采用XML节的方式传递信息消息封装通常采用IQ、Message、
+Presence。 Openfire消息包接受处理流程   数据库处理 Openfire的数据库处理采用直接调用JDBC 的方式。核心类为
+org.jivesoftware.database.DbConnectionManager。数据库的处理与业务处理
+耦合没有划分出专门的业务逻辑层。 
+ConnectionProvider  此类为数据库提供者接口如需连接mysql、hsqldb等数据库需首先实现些接口 处理方式  通常直接调用XXManager中的实例方法XXManager中又调用的是对应的接
+口XXProvider的方法实际操作在该接口的实现类中实现。实现类是动态绑定
+的默认的实现类通常命名规则为DefaultXXProvider在运行时根据
+ofproperty表中对应配置项值选择。下面以添加用户组为例进行说明。 
+ 首先获得GroupManager的一个实例在调用其构造函数时调用
+initProvider()方法在该方法中获取数据库中配置项的值若不为空则根据该
+值通过反射机制获取GroupProvider接口的实现类实例对象若为空则以
+DefaultGroupProvider作为GroupProvider接口的实现类并创建实例对象然
+后调用GroupProvider. createGroup(String name)方法完成业务操作。 
+ 常用类 org.jivesoftware.database.DbConnectionManager 
+ 连接管理类 
+org.jivesoftware.util.JiveGlobals 
+ 通常用于操作ofproperty表中记录 
+ openfire数据结构 数据库表 以下是一个说明每个表格的Openfire数据库架构。黄色行表示主键。          ofGroup
+           ofGroupProp           ofGroupUser           ofID           ofOffline           ofPresence           ofPrivate           ofUser           ofUserProp           ofUserFlag           ofRoster           ofRosterGroups           ofPrivacyList           ofVCard           ofVersion           ofProperty           ofExtComponentConf           ofRemoteServerConf           ofSecurityAuditLog           ofMucService           ofMucServiceProp           ofMucRoom           ofMucRoomProp           ofMucAffiliation           ofMucMember           ofMucConversationLog           ofPubsubNode           ofPubsubNodeJIDs           ofPubsubNodeGroups           ofPubsubAffiliation           ofPubsubItem           ofPubsubSubscription           ofPubsubDefaultConf  ofGroup 用户组的数据 列名 类型 长度 描述 groupName VARCHAR 50 组名称主键 description VARCHAR 255 组描述 ofGroupProp 名称值协会为一组 列名 类型 长度 描述 groupName VARCHAR 50  组名称主键 name VARCHAR 100  组属性名称主键 propValue VARCHAR 4000  组属性值 ofGroupUser 组成员 列名 类型 长度 描述 groupName VARCHAR 50  组名称主键 username VARCHAR 100  用户名主键 administrator NUMBER n/a  是否为管理员布尔主键 ofID 用于唯一ID序列生成 列名 类型 长度 描述 idType NUMBER n/a 证件类型例如组用户名册主键 id NUMBER n/a 下一个可用块编号的用于数据库独立编号 ofOffline 离线邮件存储 列名 类型 长度 更改 username VARCHAR 32 用户名主键 messageID NUMBER n/a 存储信息的编号主键 creationDate VARCHAR 15 日期信息存储 messageSize NUMBER n/a 邮件的大小以字节为单位 stanza TEXT n/a 消息文本 ofPresence 离线的存在 列名 类型 长度 更改 username VARCHAR 64 用户名主键 offlinePresence TEXT n/a 存在的信息设置为用户注销 offlineDate CHAR 15 信息存储日期 ofPrivate 私人数据存储 列名 类型 长度 描述 username VARCHAR 32 用户名主键 name VARCHAR 100 姓名私营项主键 namespace VARCHAR 200 名字空间私营项主键 privateData TEXT n/a 价值的私人数据 ofUser 用户数据 列名 类型 长度 描述 username VARCHAR 32  用户名主键 plainPassword VARCHAR 32  纯文字密码数据 encryptedPassword VARCHAR 255  加密的密码数据默认 name VARCHAR 100  名字 email VARCHAR 100  电邮地址 creationDate VARCHAR 15  创建日期 modificationDate VARCHAR 15  最后更新日期 ofUserProp 名称值协会针对用户 列名 类型 长度 描述 username VARCHAR 32  用户名主键 name VARCHAR 100  用户属性名称主键 propValue VARCHAR 4000  用户属性值 ofUserFlag 用户类型标识如残疾人 列名 类型 长度 描述 username VARCHAR 64  用户名主键 name VARCHAR 100  用户属性名称主键 startTime CHAR 15  国旗的时候开始被有效无效的'现在'  endTime CHAR 15  当时国旗是结束有效无效的'永远'  ofRoster 好友列表 列名 类型 长度 描述 rosterID NUMBER n/a 编号名册主键 username VARCHAR 32 用户名 jid TEXT n/a 地址名册入境 sub NUMBER n/a 认购地位入境 ask NUMBER n/a 卖出地位入境 recv NUMBER n/a 检举表明进入名册收到请求 nick VARCHAR 255 昵称分配给这个名册入境 ofRosterGroups 组的好友名单中的条目 列名 类型 长度 描述 rosterID NUMBER n/a 名册编号主键 rank NUMBER n/a 立场项主键 groupName VARCHAR 255 用户定义的名称这个名册组 ofPrivacyList 用户隐私清单 列名 类型 长度 描述 username VARCHAR 32 用户名主键 name VARCHAR 100 姓名保密清单主键 isDefault NUMBER n/a 检举指出如果这是默认隐私的用户名单 list TEXT n/a XML表示的隐私清单 ofVCard 电子名片的联系信息 列名 类型 长度 描述 username VARCHAR 32 用户名主键 vcard TEXT n/a 价值的vCard入境 ofVersion 包含产品版本信息 列名 类型 长度 描述 name VARCHAR 50 名称的项目版本信息正在跟踪的主键 version INTEGER n/a 版本号 ofProperty 服务器属性 列名 类型 长度 描述 name VARCHAR 100 属性名称主键 propValue TEXT n/a 进入值 ofExtComponentConf 外部元件配置 列名 类型 长度 描述 subdomain VARCHAR 255 子的外部元件主键 secret VARCHAR 255 共享密钥的外部元件 permission VARCHAR 10 许可表明如果组件是可以连接到服务器 ofRemoteServerConf 远程服务器配置 列名 类型 长度 描述 xmppDomain VARCHAR 255 域的外部元件主键 remotePort NUMBER n/a 港口的远程服务器连接到 permission VARCHAR 10 许可表明如果远程服务器可以连接到服务器 ofSecurityAuditLog 伐木安全事件 列名 类型 长度 描述 msgID NUMBER n/a 编号审计信息主键 username VARCHAR 64 使用者谁执行的行动 entryStamp NUMBER n/a 时间戳当事件发生 summary VARCHAR 255 总结了发生在事件 node VARCHAR 255 节点事件发生 details TEXT n/a 详细的细节所发生的 ofMucService 甲Groupchat服务 列名 类型 长度 描述 serviceID NUMBER n/a 编号的服务收录 subdomain VARCHAR 255 子服务主键 description VARCHAR 255 服务说明 isHidden NUMBER n/a 1 如果隐藏的管理界面名单 0正常 ofMucServiceProp 名称值协会的Groupchat服务 列名 类型 长度 描述 serviceID NUMBER n/a 编号的服务主键 name VARCHAR 100 属性名称主键 propValue TEXT n/a 属性值 ofMucRoom  Groupchat室内资料 列名 类型 长度 描述 roomID NUMBER n/a 编号的房间主键 creationDate VARCHAR 15 创建日期 modificationDate VARCHAR 15 最后更新日期 name VARCHAR 50 姓名房间用作公共编号 naturalName VARCHAR 255 天然名称室 description VARCHAR 255 客房描述 canChangeSubject NUMBER n/a 检举指出是否可以改变参与者的主题 maxUsers NUMBER n/a 马克斯一些房间居住者 canChangeSubject NUMBER n/a 检举指出是否与会者可以改变的主题或不 publicRoom NUMBER n/a 检举指示是否室将在目录中列出或不 moderated NUMBER n/a 检举指示是否室主持或不 membersOnly NUMBER n/a 检举指出是否房间是会员制或不 canInvite NUMBER n/a 检举指出是否占用可以邀请其他用户 roomPassword VARCHAR 50 密码数据加入室 canDiscoverJID NUMBER n/a 检举指出是否真正JID的居住者是公共或不 logEnabled NUMBER n/a 检举指出是否房间谈话记录或不 subject VARCHAR 100 最后为人所知的主题房间 rolesToBroadcast NUMBER n/a 二元代表的作用以广播 useReservedNick NUMBER n/a 检举指出是否用户只能加入室使用其保留昵称 canChangeNick NUMBER n/a 检举指出是否可以改变其占用的空间昵称 canRegister NUMBER n/a 检举显示用户是否被允许登记室 ofMucRoomProp 名称值协会的Groupchat房间 列名 类型 长度 描述 roomID NUMBER n/a 编号的房间主键 name VARCHAR 100 属性名称主键 propValue VARCHAR 4000 属性值 ofMucAffiliation 归属的空间用户 列名 类型 长度 描述 roomID NUMBER n/a 编号的房间主键 jid TEXT n/a 用户JID 主键 affiliation NUMBER n/a 一些代表所属一级 ofMucMember 室成员资料 列名 类型 长度 描述 roomID NUMBER n/a 编号的房间主键 jid TEXT n/a 用户JID 主键 nickname VARCHAR 255 保留昵称的会员 ofMucConversationLog 室会话日志 列名 类型 长度 描述 roomID NUMBER n/a 编号的空间 sender TEXT n/a JID的用户发送邮件的房间 nickname VARCHAR 255 昵称使用时由用户发出的信息 logTime VARCHAR 15 日期的消息时被送到房间 subject VARCHAR 50 新的主题改变的信息 body TEXT n/a 消息正文 ofPubsubNode 节点pubsub服务 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 nodeID VARCHAR 100 编号的节点主键 leaf NUMBER n/a 检举表明节点是否是叶或收集节点 creationDate VARCHAR 15 创建日期 modificationDate VARCHAR 15 最后更新日期 parent VARCHAR 100 编号的父节点如果有的话 deliverPayloads NUMBER n/a 检举指出是否有效载荷中包含的通知 maxPayloadSize NUMBER n/a 最大规模的有效载荷的字节 persistItems NUMBER n/a 检举表明节点是否将持续出版项目 maxItems NUMBER n/a 最大的项目数量将持续 notifyConfigChanges NUMBER n/a 检举指出是否发送通知时该节点的配置发生了变化 notifyDelete NUMBER n/a 检举指出是否发送通知时该节点将被删除 notifyRetract NUMBER n/a 检举指出是否发送通知时发布的项目将被删除 presenceBased NUMBER n/a 检举指出是否发送通知只有用户才 sendItemSubscribe NUMBER n/a 检举指出是否向去年出版项目以新用户 publisherModel VARCHAR 15 Publisher中使用的模式的节点 subscriptionEnabled NUMBER n/a 检举指出是否允许订阅 configSubscription NUMBER n/a 检举指出是否新的订户必须设定为活跃 accessModel VARCHAR 10 访问模型所使用的节点 payloadType VARCHAR 100 类型的有效载荷数据将提供在节点 bodyXSLT VARCHAR 100 网址的一个XSLT转换有效载荷的格式为一个邮件正
+文 dataformXSLT VARCHAR 100 网址的一个
+XSLT转化的有效载荷格式的数据形式结
+果 creator VARCHAR 1024 JID
+的实体建立了节点 description VARCHAR 255 说明节点 language VARCHAR 255 默认语言的节点 name VARCHAR 50 名称节点 replyPolicy VARCHAR 15 政策界定业主或出版商是否应得到答复项目 associationPolicy VARCHAR 15 政策规定谁可以联系叶节点的集合 maxLeafNodes NUMBER n/a 马克斯一些叶节点一个节点可能会收集 ofPubsubNodeJIDs  JIDs与节点 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 nodeID VARCHAR 100 编号的节点主键 jid VARCHAR 1024 JID实体主键 associationType VARCHAR 20 协会类型的节点 ofPubsubNodeGroups 名册集团与节点 列名 类型 长度 内容 serviceID VARCHAR 100 编号托管服务节点 nodeID VARCHAR 100 编号的节点 rosterGroup VARCHAR 100 名册组节点所有者可以签署和检索项目 ofPubsubAffiliation 节点分支机构 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 nodeID VARCHAR 100 编号的节点主键 jid VARCHAR 1024 JID的子公司主键 affiliation VARCHAR 10 所属类别 ofPubsubItem 项目发布到节点 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 nodeID VARCHAR 100 编号的节点主键 id VARCHAR 100 编号的出版项目独特的每个节点主键 jid VARCHAR 1024 JID出版商 creationDate VARCHAR 15 创建日期 payload TEXT n/a XML的有效载荷包括在出版项目 ofPubsubSubscription 订阅节点 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 nodeID VARCHAR 100 编号的节点主键 id VARCHAR 100 编号认购主键 jid VARCHAR 1024 地址接收通知 owner VARCHAR 1024 JID的子公司拥有认购 state VARCHAR 15 国家认购工作流程中的 deliver NUMBER n/a 检举指出是否通知或未启用 digest NUMBER n/a 检举表明一个实体是否希望收到通知摘要 digest_frequency NUMBER n/a 最低数目的毫秒之间发出任何两个通知消化 expire VARCHAR 15 日期在租赁认购将结束或已经结束 includeBody NUMBER n/a 检举表明一个实体是否希望收到邮件正文除了有效载荷
+格式 showValues VARCHAR 30 存在这些国家的实体希望收到通知 subscriptionType VARCHAR 10 无论是用
+户订阅的项目或节点收集节点只 subscriptionDepth NUMBER n/a 收到通知的儿童一定深度收集节点只 keyword VARCHAR 200 关键字活动必须符合 ofPubsubDefaultConf 默认配置节点 列名 类型 长度 描述 serviceID VARCHAR 100 编号托管服务节点主键 leaf NUMBER n/a 检举指出是否配置属于叶或收集节点主键 deliverPayloads NUMBER n/a 检举指出是否有效载荷中包含的通知 maxPayloadSize NUMBER n/a 最大规模的有效载荷的字节 persistItems NUMBER n/a 检举表明节点是否将持续出版项目 maxItems NUMBER n/a 最大的项目数量将持续 notifyConfigChanges NUMBER n/a 检举指出是否发送通知时该节点的配置发生了变化 notifyDelete NUMBER n/a 检举指出是否发送通知时该节点将被删除 notifyRetract NUMBER n/a 检举指出是否发送通知时发布的项目将被删除 presenceBased NUMBER n/a 检举指出是否发送通知只有用户才 sendItemSubscribe NUMBER n/a 检举指出是否向去年出版项目以新用户 publisherModel VARCHAR 15 Publisher中使用的模式的节点 subscriptionEnabled NUMBER n/a 检举指出是否允许订阅 accessModel VARCHAR 10 访问模型所使用的节点 language VARCHAR 255 默认语言的节点 replyPolicy VARCHAR 15 政策界定业主或出版商是否应得到答复项目 associationPolicy VARCHAR 15 政策规定谁可以联系叶节点的集合 maxLeafNodes NUMBER n/a 马克斯一些叶节点一个节点可能会收集   WEB服务器  Openfire采用内置的jetty作web服务器在启动AdminConsolePlugin插
+件时调用startup()方法启动jetty服务器9090为其明文端口9091为其加
+密端口。 页面处理  Openfire没有采用现在很流行的技术架构SSH只使用JSP+JavaBean但是它有自
+己的系统设计就连日志都是自己做的没有使用我们熟悉的log4j。 现有的Openfire管理控制台可采用插件方式进行扩展详见插件开发说明部分介绍页面采用Jsp方式实现页面直接调用业务处理逻辑类通常命名
+为XXManager的实例方法通常通过request对象封装的方式传递页面展现判
+定变量常出现本页跳转。每个插件可定义自己的Servlet类和web.xml及web-custom.xml配置文件。 
+ 采用装饰框架方式展现页面decorator页面有两个即src/web/decorators
+目录下的两个页面main.jsp和setup.jsp。采用自定义的admin标签实现标
+签库admin.tld放置在src/web/WEB-INF目录下标签解析类放置在
+org.jivesoftware.admin包下有SidebarTag、SubnavTag、SubSidebarTag、
+TabsTag四个解析类。在调用loadPlugin()方法进行插件加载时解析插件的
+plugin.xml配置文件将获取的相关信息封装在AdminConsole类的
+generatedModel对象中后期通过插件解析类提取该对象中的数据并配合sitemesh装饰器进行页面展现。详见“使用dom4j设计Openfire式导航菜单”部分相关介绍。 插件开发  Openfire Plugins加载流程  
+  官方插件开发说明 所有插件都存放在openfire根下的plugins目录下。当一个插件被以JAR
+或WAR文件发布时他自动扩展为一个文件夹。插件目录结构如下所示  
+Plugin Structure 
+myplugin/ 
+ |- plugin.xml      <- 插件定义文件 
+ |- readme.html     <- 可选的插件自己述文件它将被显示给最终用户。 
+ |- changelog.html  <-可选的插件版本日志文件它将被展现给最终用户。  
+ |- logo_small.gif  <- 可选的与插件关联的小图标16x16文件也能为
+png文件 
+ |- logo_large.gif  <-可选的与插件关联的大图标32x32文件也能为png
+文件 
+ |- classes/        <- 你的插件需要的资源文件如properties文件 
+ |- database/       <- 可选的你的插件需要的数据库schema文件 
+ |- i18n/           <- 可选的i18n文件它们为插件提供国际化支持 
+ |- lib/            <- 你的插件需要的库(JAR文件) 
+ |- web             <- 需要集成到管理控制台中的各类资源如果有的话 
+     |- WEB-INF/ 
+         |- web.xml           <- 配置jsp调度的web.xml配置文件 
+         |- web-custom.xml    <- 可选的用户定义的web.xml文件用于调
+度自定义servlets 
+     |- images/ 
+ 
+ 
+若插件需要为Openfire的管理控制台添加内容则web文件夹必须存在。具体
+内容详述如下。 
+ 
+Plugin.xml文件指定了主插件类下面是一个例子。 
+ 
+Itvi plugin.xml <?xml version="1.0" encoding="UTF-8"?> 
+<plugin> 
+    <!-- Main plugin class --> 
+    <class>plugin.Itvi</class> 
+ 
+    <!-- Plugin meta-data --> 
+    <name>TestPlugin</name> 
+    <description>This is an example plugin.</description> 
+    <author>Jive Software</author> 
+     <version>1.0</version> 
+    <date>07/01/2006</date> 
+    
+<url>http://www.igniterealtime.org/projects/openfire/plugins.jsp</url
+> 
+    <minServerVersion>3.0.0</minServerVersion> 
+    <licenseType>gpl</licenseType> 
+ 
+    <!-- Admin console entries --> 
+    <adminconsole> 
+        <!-- More on this below --> 
+        <tab id="mytab" name="Example" url="sample.html" 
+description="Click to manage..."> 
+            <sidebar id="mysidebar" name="My Plugin"> 
+               <item id="my-plugin" name="My Plugin Admin" 
+                   url="sample.html" 
+                   description="Click to administer settings for my plugin" 
+/> 
+            </sidebar> 
+        </tab> 
+ 
+    </adminconsole> 
+</plugin> 
+  
+各元数据域能在plugin.xml文件中进行设置  name – 插件名.   description – 插件描述.   author – 插件作者.   version – 插件版本.   date – 插件版本生成日期。该日期必须为MM/dd/yyyy格式, 如07/01/2006.   url – 关于该插件的更多详细信息可以从该地址获取.   minServerVersion – 为运行该插件所需的最低的Openfire软件版本Openfire 2.1.2及后续版本支持该选项.如果服务器版本低于需要的
+最低版本插件将不会启动.   databaseKey – 如果插件需要它自己的数据库表必须将databaseKey
+元素设置为一个schema key name通常与插件同名. 然后需将所有需
+支持数据库类型的数据库schema 文件放到插件的database文件夹下. 
+例如给一个关键字“foo”那么schema文件需命名为"foo_mysql.sql", 
+"foo_oracle.sql"等.我们建议你在命名你的表时加上前缀"of" 
+(openfire),以避免与其他可能使用同一数据库的其他应用系统需要的表
+产生冲突.关于版本的描述信息需添加到ofVersion表中以对应的key做标识这样可以跟踪schema版本信息如: 
+ 
+INSERT INTO ofVersion (name, version) VALUES ('foo', 0);  databaseVersion – 数据库schema版本如果定义了数据库schema。
+有数据库schema的新插件的版本从0开始编号。如果以后的插件版本需
+要更新schema这些更新能通过在database/upgrade目录下为各版本创
+建子目录的方式来定义。例如目录database/upgrade/1和
+database/upgrade/2将包括如 "foo_mysql.sql"和"foo_oracle.sql" 
+这样的包含各版本相应的数据库改变信息的脚本.这些脚本中均需要更新
+ofVersion表的信息如: 
+ 
+UPDATE ofVersion set version=1 where name='foo';  parentPlugin – 父插件名 ("foo.jar"插件相应的为"foo").当一个插
+件有一个父插件将不会创建一个新的class loader相应地替换为使
+用父插件的class loader。这使得插件间能更紧密地联合工作。子插件
+不能脱离父插件独立工作。   licenseType – 指定许可类型信息。 有效值包括:  o "commercial": 插件被发布为商业性插件。  o "gpl": 插件被发布为遵循GNU Public License (GPL)协议。  o "apache": 插件被发布为Apache license系列 o "internal": 插件仅供内部使用且不能被重新发布。 o "other": 插件被发布为与其他目录下的版本限制不同。License
+许可信息需在插件自述文件中进行详细描述。 
+如果许可类型未设置默认为other。  
+为了给最终用户提供插件的额外信息可以为插件添加一些额外文件全放置在
+插件的主目录下:   readme.html – 可选的插件自述文件它的信息将展现给最终用户。   changelog.html --可选的插件版本日子文件它将被展现给最终用户。   logo_small.png --可选的与插件关联的小图标16x16文件也能为
+gif文件。  logo_large.png --可选的与插件关联的大图标32x32文件也能为gif文件。 
+插件必须实现Plugin接口且有一个默认构造函数。Plugin接口包含了初始化
+和销毁插件的方法。  
+Sample plugin implementation 
+package org.example; 
+ 
+import org.jivesoftware.openfire.container.Plugin; import org.jivesoftware.openfire.container.PluginManager; 
+ 
+import java.io.File; 
+ 
+/** 
+ * A sample plugin for Openfire. 
+ */ 
+public class ExamplePlugin implements Plugin { 
+ 
+    public void initializePlugin(PluginManager manager, File 
+pluginDirectory) { 
+        // Your code goes here 
+ 
+    } 
+ 
+    public void destroyPlugin() { 
+        // Your code goes here 
+    } 
+} 
+ 
+Openfire插件开发人员指南 导言 插件是增强Openfire功能。这份文件是一个开发人员创建插件指南。 结构的一个插件 插件存放在插件openfireHome目录。当部署一个jar或war插件文件它会自动解压安装。
+该文件在插件目录结构如下 插件结构   
+  myplugin /  
+                 | - plugin.xml                             插件定义
+文件  
+                 | - readme.html                           任择自述文
+件的插件它会显示给最终用户                   | - changelog.html                       任择修改文件
+的插件它会显示给最终用户  
+                 | - icon_small.gif                        可选小
+ 16x16 图标与插件也可以是 PNG文件  
+                 | - icon_large.gif                        可选大
+ 32x32 图标与插件也可以是 PNG文件  
+                 | classes/                                    资源的
+插件需要即属性文件  
+                 | -database/                                可选数据
+库架构文件你需要插件  
+                 | -i18n/                                      插件国
+际化的语言配置。  
+                 | -lib/                                       您的插
+件的jar包  
+                 | -web                                     资源的管
+理控制台集成如果有的话  
+                          | - WEB-INF/  
+                          | - web.xml                       生成
+web.xml中含有编译JSP的条目  
+                          | -web-custom.xml                       可
+选用户自定义的web.xml中的自定义servlets  
+                          | -images/                          图片文
+件存放的目录 web目录存在的插件需要添加到Openfire管理控制台。进一步的细节如下。 在plugin.xml文件规定的主要插件类。样本文件看起来可能如下 样本plugin.xml  
+<?xml version="1.0" encoding="UTF-8"?> 
+<plugin> 
+    <!—需要的插件类 --> 
+    <class>org.example.ExamplePlugin</class> 
+  
+    <!-- 插件元数据 --> 
+    <name>Example Plugin</name> 
+    <description>This is an example plugin.</description> 
+    <author>Jive Software</author> 
+  
+    <version>1.0</version> 
+    <date>07/01/2006</date> 
+    <url>http://www.igniterealtime.org/projects/openfire/plugins.jsp<
+/url> 
+    <minServerVersion>3.0.0</minServerVersion>     <licenseType>gpl</licenseType> 
+  
+    <!-- 管理控制台的条目 --> 
+    <adminconsole> 
+        <!-- More on this below --> 
+    </adminconsole> 
+</plugin> 该元数据的领域可以设置在plugin.xml文件          name               -插件的名称。          description          -插件的说明。          author              -插件的作者。          version             -该插件的版本。          date                -发布日期如2006年7月1日。          url                  -插件网址。          minServerVersion    -最低Openfire版本          databaseKey        -如果插件需要它自己的数据表该databaseKey内容应设立
+一个架构主要名称通常是相同名称的插件。数据库架构文件为每个支持的数
+据库然后放置在数据库目录下的插件。例如 “foo”架构文件将被称为
+“ foo_mysql.sql ”  “ foo_oracle.sql ”等等我们建议您您的表前缀of 以避
+免可能的冲突与其他应用程序安装在同一数据库。脚本应该进入ofVersion表使
+用的关键这样的架构版本信息可跟踪例如  
+ INSERT INTO ofVersion (name, version) VALUES ('foo', 0); databaseVersion -数据
+库版本号如果数据库模式的定义。新的插件与数据库架构应该开始在版本。
+如果将来插件版本的需要更新这些更新可以定义创建子目录中的升级数据库目录
+为每个版本。例如目录database/upgrade/1和database/upgrade/2将包含
+脚本如“ foo_mysql.sql ”和“ foo_oracle.sql ”中包含相关的数据库为每一个版
+本的变化。每个脚本应该更新版本中的信息ofVersion表例如  
+ UPDATE ofVersion set version=1 where name='foo';          parentPlugin -父层插件作为“foo”的“ foo.jar ”插件。当一个插件有一个父插
+件插件的类加载器将被使用来而不是建立一个新的类加载器。这可让插件更加
+紧密地协同工作。子插件将不会影响其父插件。          “licenseType”显示许可协议该插件是由。有效值如下 o    “commercial”commercial “商业” 插件是下发布的商业许可协议。 o    “gpl” “通用公共许可证” 插件发布使用GNU公共授权 GPL 。 o    “apache” 该插件发布的Apache许可证。 o    “internal” 内部插件是供内部使用的一个组织只并不会重新分配。 o    “other” 其他插件是许可下发布agrement不属于其中的其他类别。许
+可协议的细节应该在插件的自述。 如果许可证类型未设置这是假定其他。 一些额外的文件都可以在该插件提供更多资料以最终用户所有放置在主要的插件目录          readme.html -可选自述文件的插件它会显示给最终用户。          changelog.html -可选修改文件的插件它会显示给最终用户。          icon_small.png -可选小 16x16 图标相关插件。也可以是。 GIF文件。          icon_large.png -可选大 32x32 图标相关插件。也可以是。 GIF文件。 
+interface from the Openfire API as well as have a default (no argument) 
+contructor.您的插件类必须执行插件接口从Openfire的API
+ 以及有一个缺省无参数 
+contructor 。插件接口方法初始化和销毁插件。 采样插件执行 
+package org.example; 
+  
+import org.jivesoftware.openfire.container.Plugin; 
+import org.jivesoftware.openfire.container.PluginManager; 
+  
+import java.io.File; 
+  
+/** 
+ * A sample plugin for Openfire. 
+ */ 
+public class ExamplePlugin implements Plugin { 
+  
+    public void initializePlugin(PluginManager manager, File 
+pluginDirectory) { 
+        //您的代码 
+  
+    }   
+    public void destroyPlugin() { 
+        //您的代码 
+    } 
+} 
+General Plugin Best Practices一般插件最佳实践 在选择软件包的名称为您的插件我们建议您选择一些与众不同的您和/或您的组织以帮助避
+免冲突尽可能。例如如果每个人去与org.example.PluginName 即使PluginName是不同的
+您可能会开始投放到一些冲突在这里和那里的类名。尤其是当工作与聚类。 。 修改管理控制台 插件可以添加标签区段和网页的管理控制台。有几个步骤以完成这项          第一个<adminconsole/>必须添加到plugin.xml文件。          JSP的文件必须编制和实施的类路径的插件。阿web.xml中的汇编文件其中包
+含的JSP servlet的条目必须付诸网页/目录下的插件。注 Openfire建立脚本可以协助编制JSPs和创造web.xml中。这是详细说明如下。          任何图像所需的JSP页面必须住在网页/图像/目录。只有GIF和PNG图像的支持。 该<adminconsole />部分plugin.xml定义额外的标签科和项目管理控制台框架。抽样plugin.xml文件看起来可能如下 样本plugin.xml  <?xml version="1.0" encoding="UTF-8"?> <plugin>     <!--主要插件类-->     <class>org.example.ExamplePlugin</class>     <!--管理控制台的条目-->     <adminconsole>         <tab id="mytab" name="Example" url="my-plugin-admin.jsp" 
+description="Click to manage...">             <sidebar id="mysidebar" name="My Plugin">                <item id="my-plugin" name="My Plugin Admin"                    url="my-plugin-admin.jsp"                    description="Click to administer settings for my plugin" />             </sidebar>         </tab>     </adminconsole> 
+</plugin> 在这个例子中我们定义一个新的标签“范例” 一个工具栏目“我的插件”和一个网页“我的插件
+管理” 。我们已经注册的插件admin.jsp页面。您可以覆盖现有的标签区段项目利用现有的ID属性值在自己的<adminconsole>定义。 管理控制台最佳实践 有几种最佳做法时需要考虑变更Openfire管理控制台通过一个插件。总的主题是无缝集成的插件应该          集成到现有的标签和侧栏节只要有可能不是创建自己的。只有创造新标签的非常重要的新功能。          不要用“插件”的名称标签 sidebars和项目。例如有一个项目叫做“网关插件” 也可能是所谓的“网关设置” 。          尝试以符合现有的用户界面管理控制台在您的自定义插件的网页。          没有必要建立一个管理控制台进入查看插件元数据。相反让Openfire告知用户有关该插件安装并提供插件管理。 写作网页管理控制台 Openfire使用Sitemesh
+框架装饰网页的管理控制台。全球定义的装修适用于每个网页以便使
+最终产出如下面的图 建立网页与Sitemesh是容易的。只要创建有效的HTML页面然后使用中继标记来传送指示
+Sitemesh 。当渲染输出 Sitemesh将使用您所提供的指示使装修的任何内容在您的HTML
+网页。以下元标记可用于        pageID -的ID的网页其中必须符合入境管理控制台中的XML上文所述。要么pageID
+或subPageID 必须指定。        subPageID -的ID小组网页其中必须符合入境管理控制台中的XML上文所述。小组网页用于行政行为涉及到父页面编号。例如编辑或删除某一特定群体。要么pageID
+或subPageID 必须指定。        extraParams 可选 -额外的参数应通过网页。例如在网页上删除一组可能的
+ID集团。参数必须是URL编码。        装修可选 -覆写Sitemesh装修使用的网页。装修没有命名将可提供简单的网页
+没有装修。 下面的HTML代码段显示了有效的网页 范例 
+<html> 
+   <head> 
+       <title>My Plugin Page</title> 
+  
+       <meta name="pageID" content="myPluginPage"/> 
+   </head> 
+   <body> 
+        Body here! 
+   </body> 
+   </html> 
+在您使用本土化插件 这有可能把你的插件成多种语言化 i18n 。为此请使用下列程序进行    创建一个“i18n”目录的根目录中的插件。    购买每项资源文件并使用%[plugin_name]%_i18n "_" language ".properties"。属性”
+命名约定在那里[ plugin_name ]的名字是插件目录中。见翻译指南 详细了解资源
+包。    字符串转换在您的JSP的文件指的是国际钥匙。例如          
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" 
+prefix="c" %>     <%@ taglib uri="http://java.sun.com/jstl/fmt_rt" 
+prefix="fmt" %> 
+        ... 
+    <fmt:message key="some.key.name" />    国际化在你的Java文件使用LocaleUtils class  org.jivesoftware.util.LocaleUtils.getLocalizedString("some.key.name", 
+"[plugin_name]");    国际化plugin.xml文件在您使用$ 叶格式  <sidebar id="gateways" name="${plugin.sidebar.name}" 
+description="${plugin.sidebar.description}"> <description>${plugin.description}</description> 使用Openfire构建脚本 在Openfire建立脚本将帮助您建立和发展插件。它看起来的插件开发目录格式如下 插件结构 
+myplugin/ 
+ |- plugin.xml      <-插件定义文件 
+ |- readme.html     <-插件自述文件 
+ |- changelog.html <-插件修改的日志 
+ |- icon_small.gif <- 缩略图片(16x16)  
+|- icon_large.gif <-图片 (32x32)  
+ |- classes/         <-资源的插件需要即属性文件 
+ |- lib/              <- 包 
+ |- src/ 
+     |- database      <-可选的数据库脚本的插件 
+     |- java           <- 插件的Java源代码 
+     |   |- com 
+     |       |- mycompany 
+     |           |- *.java 
+     |- web 
+         |- *.jsp          <- jsp页面 
+         |- images/       <- 图片文件 
+         |- WEB-INF 
+             |- web.xml    <-可选的文件自定义servlets可以注册 构建脚本将编译源文件和JSPs 并建立有效的插件结构和JAR文件。把你的插件目录中的 src /插件目录下的源分布然后用antplugins来建立您的插件。 任何JAR文件的插件需要在汇编应放到lib目录。这些JAR文件也将被复制到插件的生成lib目录的构建过程的一部份。 如果您创建一个src/web/WEB-INF/web.xml注册servlets初始化时启动插件。只有注册的
+servlet和servlet的映在web.xml中的文件。注此功能是通过合并执行您的自定义web.xml
+中的档案文件的web.xml中所产生的JSP的汇编过程。 执行您的插件 插件完全进入Openfire的API 。这提供了一个巨大的灵活性什么插件可以完成。然而有几
+个集成点这是最常见的 
+1. 注册一个插件作为一个组成部分
+ 。元件接收所有数据包给某一特定子网域。例如test_component.example.com。因此数据包发送到joe@test_component.example.com将交付给该组件。请注意子域定义为组件无关的
+DNS条目的子域。所有的XMPP协议路由在套接字级别是使用主服务器域
+ example.com在上面的例子 ;子域仅用于路由的XMPP协议的服务器。  
+2. 注册一个插件作为IQHandler
+ 。智商处理回应智商包特别元素的名称和命名空间。下面
+的代码片断演示了如何注册一个IQHandler   
+   IQHandler myHandler = new MyIQHander(); 
+ IQRouter iqRouter = XMPPServer.getInstance().getIQRouter(); 
+ iqRouter.addHandler(myHandler);   
+3. 注册一个插件作为PacketInterceptor
+接收所有数据包被通过该系统并有选择地予以拒
+绝。例如一个拦截可以拒绝所有的邮件或载亵渎国旗他们审查的管理员。  
+4. 您可以储存持续插件设置Openfire属性使用JiveGlobals.getProperty 字符串和
+JiveGlobals.setProperty 字符串字符串的方法。让您的插件属性听众收听改变其
+性质执行org.jivesoftware.util.PropertyEventListener方法。您可以注册您
+的插件作为一个听者使用PropertyEventDispatcher.addListener 
+ PropertyEventListener 方法。一定要注册您的插件作为听众在您的插件的
+destroyPlugin 方法。  插件常见问题解答 我是否可以部署一个插件目录不是一jar 不所有的插件必须部署Jar文件或WAR文件。当插件的一个jar或war不存在 Openfire
+假设该文件已被删除而用户要销毁插件所以它也删除了目录。 
+ 
+ 
+ 
+ 通常的插件开发经验 当为你的插件包命名时我们建议你选择你或你的单位相关的唯一性信息作
+为包名以尽可能地避免冲突。例如如果所有人都以“org.example.插件名”为
+插件类命名,即使插件名不同, 你也可能在不同的地方遇到类名冲突的情况。这
+种情况在联合开发时特别容易碰到。 
+ Openfire和MINA 看了几天的openfire网上的资料太少了只有一个国外的网站不错
+http://www.igniterealtime.org/ 其他的只能自己摸索了。 
+openfire启动 ServerStarter 会加载 org.jivesoftware.openfire.XMPPServer 
+在XMPPServer会加载一系列模块 
+其中的ConnectionManagerImpl 是连接模块 
+ // Load this module always last since we don't want to start listening 
+for clients 
+        // before the rest of the modules have been started 
+        loadModule(ConnectionManagerImpl.class.getName());  
+ConnectionManagerImpl 会启动一系列的监听。 
+其中的createClientListeners和startClientListeners是我比较关心的先
+看看在这里面openfire都做了什么 
+private void createClientListeners() { 
+        // Start clients plain socket unless it's been disabled.          if (isClientListenerEnabled()) { 
+            // Create SocketAcceptor with correct number of processors  
+            socketAcceptor = buildSocketAcceptor(); 
+            // Customize Executor that will be used by processors to 
+process incoming stanzas  
+            ExecutorThreadModel threadModel = 
+ExecutorThreadModel.getInstance("client" ); 
+            int eventThreads = 
+JiveGlobals.getIntProperty("xmpp.client.processing.threads" , 16); 
+            ThreadPoolExecutor eventExecutor = 
+(ThreadPoolExecutor)threadModel.getExecutor(); 
+            eventExecutor.setCorePoolSize(eventThreads + 1); 
+            eventExecutor.setMaximumPoolSize(eventThreads + 1); 
+            eventExecutor.setKeepAliveTime(60, TimeUnit.SECONDS ); 
+ 
+            socketAcceptor .getDefaultConfig().setThreadModel(threadM
+odel); 
+            // Add the XMPP codec filter  
+            socketAcceptor .getFilterChain().addFirst("xmpp" , new 
+ProtocolCodecFilter(new XMPPCodecFactory())); 
+            // Kill sessions whose outgoing queues keep growing and fail 
+to send traffic  
+            socketAcceptor .getFilterChain().addAfter("xmpp" , "outCap 
+", new StalledSessionsFilter()); 
+        } 
+    } 
+对了这里就是和用的mina框架去做联网处理,首先设置mina框架的线程池然
+后把由XMPPCodecFactory做为 ProtocolCodecFilter的chain添加到
+FilterChain中 
+然后 
+private void startClientListeners(String localIPAddress) { 
+        // Start clients plain socket unless it's been disabled. 
+        if (isClientListenerEnabled()) { 
+            int port = getClientListenerPort(); 
+            try { 
+                // Listen on a specific network interface if it has been 
+set. 
+                String interfaceName = 
+JiveGlobals.getXMLProperty("network.interface"); 
+                InetAddress bindInterface = null; 
+                if (interfaceName != null) { 
+                    if (interfaceName.trim().length() > 0) {                         bindInterface = 
+InetAddress.getByName(interfaceName); 
+                    } 
+                } 
+                // Start accepting connections 
+                socketAcceptor 
+                        .bind(new InetSocketAddress(bindInterface, 
+port), new ClientConnectionHandler(serverName)); 
+ 
+                ports.add(new ServerPort(port, serverName, 
+localIPAddress, false, null, ServerPort.Type.client)); 
+ 
+                List<String> params = new ArrayList<String>(); 
+                params.add(Integer.toString(port)); 
+                Log.info(LocaleUtils.getLocalizedString("startup.plai
+n", params)); 
+            } 
+            catch (Exception e) { 
+                System.err.println("Error starting XMPP listener on 
+port " + port + ": " + 
+                        e.getMessage()); 
+                Log.error(LocaleUtils.getLocalizedString("admin.error
+.socket-setup"), e); 
+            } 
+        } 
+    } 
+  socketAcceptor 
+                        .bind(new InetSocketAddress(bindInterface, 
+port), new ClientConnectionHandler(serverName));  
+将ClientConnectionHandler作为数据处理  
+服务器去监听5222端口去了mina真方便 
+ 关于MINA框架可以去网上找找资料这里就不说了。 
+  这里要说下MINA中的IoHandler这个接口IoHandler是最终面对用户的接
+口看下这个接口中的方法 
+ 
+public interface IoHandler { 
+    /** 
+     * Invoked from an I/O processor thread when a new connection has been created. 
+     * Because this method is supposed to be called from the same thread 
+that 
+     * handles I/O of multiple sessions, please implement this method to 
+perform 
+     * tasks that consumes minimal amount of time such as socket parameter 
+     * and user-defined session attribute initialization. 
+     */  
+    void sessionCreated(IoSession session) throws Exception; 
+ 
+    /** 
+     * Invoked when a connection has been opened.  This method is invoked 
+after 
+     * {@link #sessionCreated(IoSession)}.  The biggest difference from 
+     * {@link #sessionCreated(IoSession)} is that it's invoked from other 
+thread 
+     * than an I/O processor thread once thread model is configured 
+properly. 
+     */  
+    void sessionOpened(IoSession session) throws Exception; 
+ 
+    /** 
+     * Invoked when a connection is closed. 
+     */  
+    void sessionClosed(IoSession session) throws Exception; 
+ 
+    /** 
+     * Invoked with the related {@link IdleStatus} when a connection 
+becomes idle. 
+     * This method is not invoked if the transport type is UDP; it's a 
+known bug, 
+     * and will be fixed in 2.0. 
+     */  
+    void sessionIdle(IoSession session, IdleStatus status) throws 
+Exception; 
+ 
+    /** 
+     * Invoked when any exception is thrown by user {@link IoHandler} 
+     * implementation or by MINA.  If <code>cause</code> is an instance 
+of 
+     * {@link IOException}, MINA will close the connection automatically. 
+     */  
+    void exceptionCaught(IoSession session, Throwable cause) throws 
+Exception;  
+    /** 
+     * Invoked when a message is received. 
+     */  
+    void messageReceived(IoSession session, Object message) throws 
+Exception; 
+ 
+    /** 
+     * Invoked when a message written by {@link IoSession#write(Object)} 
+is 
+     * sent out. 
+     */  
+    void messageSent(IoSession session, Object message) throws Exception; 
+} 
+ 
+在mina中实现这个接口的类是IoHandlerAdapter 这个类 
+/** 
+ * An abstract adapter class for {@link IoHandler}.  You can extend this 
+ * class and selectively override required event handler methods 
+only.  All 
+ * methods do nothing by default. 
+ * 
+ * @author The Apache MINA Project (dev@mina.apache.org) 
+ * @version $Rev: 671827 $, $Date: 2008-06-26 10:49:48 +0200 (jeu, 26 jun 
+2008) $ 
+ */  
+public class IoHandlerAdapter implements IoHandler { 
+ 
+    private final Logger logger = LoggerFactory.getLogger(getClass()); 
+ 
+    public void sessionCreated(IoSession session) throws Exception { 
+    } 
+ 
+    public void sessionOpened(IoSession session) throws Exception { 
+    } 
+ 
+    public void sessionClosed(IoSession session) throws Exception { 
+    } 
+ 
+    public void sessionIdle(IoSession session, IdleStatus status) 
+            throws Exception { 
+    }  
+    public void exceptionCaught(IoSession session, Throwable cause) 
+            throws Exception { 
+        if (logger.isWarnEnabled()) { 
+            logger.warn("EXCEPTION, please implement " 
+                    + getClass().getName() 
+                    + ".exceptionCaught() for proper handling:", cause); 
+        } 
+    } 
+ 
+    public void messageReceived(IoSession session, Object message) 
+            throws Exception { 
+    } 
+ 
+    public void messageSent(IoSession session, Object message) throws 
+Exception { 
+    } 
+} 
+ 
+接下来转到openfire在openfire中ConnectionHandler类继承自
+IoHandlerAdapter也就充当着最后要面对用户的角色。 
+public abstract class ConnectionHandler extends IoHandlerAdapter 
+ 
+      这个是ConnectionHandler的类图可以看出他有3个子类而其中的
+ClientConnectionHandler是处理客户端和服务器连接用到的也是我先要说明
+的。 
+      当有客户端进行连接的时候MINA框架会调用IoHandler的
+sessionOpened(), 
+    public void sessionOpened(IoSession session) throws Exception { 
+        // Create a new XML parser for the new connection. The parser will 
+be used by the XMPPDecoder filter.  
+        XMLLightweightParser parser = new 
+XMLLightweightParser(CHARSET ); 
+        session.setAttribute(XML_PARSER, parser); 
+        // Create a new NIOConnection for the new session  
+        NIOConnection connection = createNIOConnection(session); 
+        session.setAttribute(CONNECTION , connection); 
+        session.setAttribute(HANDLER , 
+createStanzaHandler(connection)); 
+        // Set the max time a connection can be idle before closing it  
+        int idleTime = getMaxIdleTime(); 
+        if (idleTime > 0) { 
+            session.setIdleTime(IdleStatus.READER _IDLE, idleTime); 
+        } 
+    } 
+可以看到这里分别创建了XMLLightweightParserNIOConnection
+ClientStanzaHandler实例并将它们放到了session中 
+ 
+      当客户端往服务器发送消息的时候会调用IoHandler的
+messageReceived(IoSession session, Object message) 
+    public void messageReceived(IoSession session, Object message) 
+throws Exception { 
+        // Get the stanza handler for this session  
+        StanzaHandler handler = (StanzaHandler) 
+session.getAttribute(HANDLER ); 
+        // Get the parser to use to process stanza. For optimization there 
+is going 
+        // to be a parser for each running thread. Each Filter will be 
+executed 
+        // by the Executor placed as the first Filter. So we can have a 
+parser associated 
+        // to each Thread  
+        int hashCode = Thread.currentThread().hashCode(); 
+        XMPPPacketReader parser = parsers .get(hashCode); 
+        if (parser == null ) { 
+            parser = new XMPPPacketReader(); 
+            parser.setXPPFactory(factory );             parsers .put(hashCode, parser); 
+        } 
+        // Update counter of read btyes  
+        updateReadBytesCounter(session); 
+      System.out .println("RCVD: " + message); 
+        // Let the stanza handler process the received stanza  
+        try { 
+            handler.process((String) message, parser); 
+        } catch (Exception e) { 
+            Log.error("Closing connection due to error while processing 
+message: " + message, e); 
+            Connection connection = (Connection) 
+session.getAttribute(CONNECTION ); 
+            connection.close(); 
+        } 
+    } 
+在这里得到了XMPPPacketReader 然后处理过来的XML数据。 
+到这里就完成了C------>S的数据传输数据通过MINA层来到了XMPP层。 
+上面写了数据由MINA层到了XMPP层接下来看看数据XMPP是在OPENFIRE
+的XMPP层里都被做什么处理了由于研究的时间比较短只能大概写一下。 
+      可以看到数据在messageReceived()中被StanzaHandler处理了。  
+上面是类图只画了C-S的ClientStanzaHandler的。 
+首先如果是有新客户端连接的话会调用sessionOpened().然后创建一个
+ClientStanzaHandler。 
+接着数据在MINA框架经过第一次解码XMPPCodecFactory后传到
+ConnectionHandler中的 
+messageReceived()然后处理客户端发来的XMPP包StanzaHandler 会解析数
+据包(process) 
+如果是"<stream:stream"开头的话会为此客户端创建一个
+clientsession(createSession()). 
+下面是代码片段 
+ 
+ boolean initialStream = stanza.startsWith("<stream:stream" ) || 
+stanza.startsWith("<flash:stream" ); 
+        if (!sessionCreated || initialStream) { 
+            if (!initialStream) {                 // Allow requests for flash socket policy files directly 
+on the client listener port  
+                if (stanza.startsWith("<policy-file-request/>" )) { 
+                    String crossDomainText = 
+FlashCrossDomainServlet.CROSS_DOMAIN_TEXT + 
+                            XMPPServer.getInstance().getConnectionMan
+ager().getClientListenerPort() + 
+                            FlashCrossDomainServlet.C 
+ROSS_DOMAIN_END_TEXT + '\0' ; 
+                    connection.deliverRawText(crossDomainText); 
+                    return; 
+                } 
+                else { 
+                    // Ignore <?xml version="1.0"?>  
+                    return ; 
+                } 
+            } 
+            // Found an stream:stream tag...  
+            if (!sessionCreated ) { 
+                sessionCreated = true; 
+                MXParser parser = reader.getXPPParser(); 
+                parser.setInput(new StringReader(stanza)); 
+                createSession(parser); 
+            } 
+ 
+     以后再有 xmpp数据过来的话会送到clientSession中去处理比如给
+好友发消息到clientSession中解析完了后会调用deliver()由
+NIOConnection发到MINA层中。 
+   至此数据从C----->S的简单流程就完事了以后有时间会写S----->S的
+数据处理 使用dom4j设计Openfire式导航菜单  
+通过上一篇文章dom4j实战一——使用dom4j从XML中读取数据源配置
+使我们对dom4j有了一些初步的认识和了解也掌握了基本的操作方法本文将
+承接前篇借鉴Openfire项目中菜单设计的优点结合我们自己的需求通过
+一个小实例来说明一下如何使用dom4j来实现这个功能。   可以在http://www.igniterealtime.org/downloads/index.jsp 这里下载
+到Openfire的发布版和源码版Openfire的介绍在这里不作描述网上相关的
+资料有很多有兴趣的朋友可以下载源码研究一下其实不了解Openfire也没
+关系因为我们只是借鉴其中的一些思想等做完了实例就会有一个比较直观
+的认识。 
+  大象建议先在最后面下载源码和必要的JAR包让程序运行起来看下效果
+再看下面的详细说明。 
+  开发环境Eclipse 3.2.1 MyEclipse 5.10GA Tomcat 6.10  
+  dom4j-1.6.1.jar jaxen-1.1-beta-7.jar sitemesh-2.2.1.jar 
+  1、创建tag-console.xml 
+  在src目录下建一个tag-console.xml文件这个配置文件中写的是菜单信
+息内容如下 
+<?xml version="1.0" encoding="GBK"?> 
+<bookstore> 
+  <global> 
+    <appname>菜单导航demo</appname> 
+    <version>ver 1.0</version> 
+    <creator>菠萝大象</creator> 
+  </global> 
+  <catalog id="catalog-program" name="编程开发" url="index.jsp" 
+description="编程开发">   
+    <item id="item-program-java" name="Java开发" url="index.jsp" 
+description="Java开发"> 
+      <book id="695043" name="Struts2 深入详解" url="index.jsp" 
+description="Struts2 深入详解"/> 
+      <book id="691254" name="Ant整合开发" url="book_ant.jsp" 
+description="Ant整合开发"/> 
+      <book id="693668" name="Java编程思想" url="book_java.jsp" 
+description="Java编程思想"/> 
+    </item> 
+    <item id="item-program-database" name="数据库开发" 
+url="book_oracle9.jsp" description="数据库开发"> 
+      <book id="691245" name="Oracle 9i数据库宝典" 
+url="book_oracle9.jsp" description="Oracle 9i数据库宝典"/> 
+      <book id="693254" name="SQL Server 2005应用开发" 
+url="book_sqlserver.jsp" description="SQL Server 2005应用开发"/> 
+      <book id="690215" name="Oracle 10g高级开发" 
+url="book_oracle10.jsp" description="Oracle 10g高级开发"/> 
+    </item>   </catalog> 
+  <catalog id="catalog-system" name="系统相关" url="book_vista.jsp" 
+description="系统相关"> 
+    <item id="item-system-windows" name="Windows系统" 
+url="book_vista.jsp" description="Windows系统"> 
+      <book id="691258" name="Windows Vista入门" 
+url="book_vista.jsp" description="Windows Vista入门"/> 
+      <book id="695489" name="Windows注册表实战" 
+url="book_windows.jsp" description="Windows注册表实战"/> 
+    </item> 
+    <item id="item-system-linux" name="Linux系统" 
+url="book_linux9.jsp" description="Linux系统"> 
+      <book id="696598" name="Linux 9.0详解" 
+url="book_linux9.jsp" description="Linux 9.0详解"/> 
+      <book id="694585" name="Linux宝典" url="book_linux.jsp" 
+description="Linux宝典"/> 
+    </item> 
+  </catalog> 
+</bookstore>  
+上面XML里面的东西我是随便写的大家千万不要较真我用图书来做菜单一是
+方便大家理解另一个是简化程序其实Openfire的服务器端是一个后台管理
+系统它是基于XMPP可扩展消息处理现场协议开发的XMPP贯穿整个系统
+设计如果你想用它的控制台框架但又不想用XMPP请先从网页入口开始
+结合页面仔细分析代码把需要的部分抽取出来就行了其它的不用去管。大象
+没有研究过XMPP只是抽取了控制台框架对Openfire的源代码也没能深入的
+研究最主要还是E文太烂了。^_^ 
+  Openfire没有采用现在很流行的技术架构SSH只使用JSP+JavaBean
+但是它有自己的系统设计就连日志都是自己做的没有使用我们熟悉的log4j
+真的是太佩服鸟 
+  2、创建ResourceManage.java 
+  在util包下创建ResourceManage类这个类主要是用来读取
+tag-console.xml文件并取得文件中的基本信息以及查找元素等操作。 
+  我们先在Constant接口中增加一个字符串常量String TAG_CONFIG = 
+"tag-console.xml" 
+  ResourceManage前面加载资源的部分和上一篇后来修改过的
+DataBaseConnect类一样只需把Constant.DB_CONFIG换成
+Constant.TAG_CONFIG就行了。接下来在类中加入几个读取XML中基本信息的
+方法   <global> 
+    <appname>菜单导航demo</appname> 
+    <version>ver 1.0</version> 
+    <creator>菠萝大象</creator> 
+  </global> 
+  这里只举出取得appname元素值的方法其它的几个都很相似请查看源代
+码。 
+  /** 
+   * 得到应用程序名称 
+   */ 
+  public static String getAppName(){ 
+    Element appName = (Element) 
+coreModel.selectSingleNode("//bookstore/global/appname"); 
+    if(appName!=null){ 
+      return appName.getText(); 
+    }else{ 
+      return null; 
+    } 
+  }  
+根据id属性值查找对应的元素 
+  /** 
+   * 在整个文档节点中查找id属性值为传入id的元素对象 
+   * @param id 待查找的id属性值 
+   * @return 返回找到的元素对象 
+   */ 
+  public static Element getSingleElementById(String id){ 
+    return 
+(Element)coreModel.selectSingleNode("//*[@id='"+id+"']"); 
+  } 
+  这里用到了XPATH语法根据传入的id值在整个文档中查找id属性值与
+此一致的元素对象。用下面的代码举例说明 
+  <book id="695043" name="Struts2 深入详解" url="index.jsp" 
+description="Struts2 深入详解"/>    当传入的id属性值为"695043"时
+那么我们就会得到对应这个id值的book元素对象id属性值在整个配置文件
+中就是一个key关键字起到定位的作用。 
+  根据id属性值查找上下文中对应的catalog元素   /** 
+   * 根据传入的id查找上下文中对应的catalog元素 
+   * @param id 待查找的id属性值 
+   * @return 返回id值所在的catalog元素对象 
+   */ 
+  public static Element getElementByID(String id) { 
+    return (Element) coreModel.selectSingleNode("//*[@id='" + id 
+        + "']/ancestor::catalog"); 
+  } 
+  ancestor是XPATH语法中轴的概念我引用网上官方文档中的说明
+“ancestor轴(axis)包含上下节点的祖先节点该祖先节点由其上下文节点的
+父节点以及父节点的父节点等等诸如此类的节点构成所以ancestor轴总是包
+含有根节点除非上下文节点就是根节点本身。”这句话的意思其实就是向上查
+找节点直到找到根节点为止。对于ancestor::catalog来说就是向上查找直
+到catalog节点为止。所以getElementByID这个方法是根据传入的id属性值在
+上下文中查找节点直到找到这个id值所在的上下文catalog节点为止。当传
+入的id属性值为"695043"时我们会得到id="catalog-program"这个catalog
+节点元素而不会得到id="catalog-system"这个catalog节点元素。这样说大
+家大概能明白是什么意思了吧 
+可以去这个网站看下XPATH教程
+http://www.zvon.org/xxl/XPathTutorial/General_chi/examples.html 
+  3、自定义标签  
+  采用自定义标签的方式来生成菜单借助ResourceManage类取出XML文件
+中的信息将这些内容装载到标签体中然后在JSP页面中呈现出来。 
+  1、主菜单标签 
+  主菜单有两个catalog元素这一层表示主菜单。标签的实现类如下 
+  MainTag.java 
+  建com.demo.tag包在tag包下创建MainTag类继承
+javax.servlet.jsp.tagext.BodyTagSupport类主要的部分代码如下完整代
+码请下载源码包查看。 
+  这些属性与demo.tld中的属性对应每个属性都有setter和getter方法。 
+  private String css; //菜单的CSS样式 
+  private String currentcss; //当前选中菜单的CSS样式   doStartTag()方法是遇到标签开始时调用的方法EVAL_BODY_BUFFERED表
+示创建一个缓冲流将标签体的内容保存到BodyContent对象中可以对其内容
+进行修改。BodyContent继承了javax.servlet.jsp.JspWriter类BodyContent
+对象的内容不自动写入servlet的输出流而是放在一个字符流缓存中。当标签
+体完成后其对象仍可在doEndTag()方法中应用由getString()或getReader()
+方法操作。并在必要时修改及写入恢复的JspWriter输出流。EVAL_BODY_INCLUDE
+表示将显示标签间的文字。另一个返回值是SKIP_BODY它表示不显示标签间的
+文字。 
+  public int doStartTag() throws JspException { 
+    return EVAL_BODY_BUFFERED; //创建保存到BodyContent对象中的缓
+冲流 
+  }     doEndTag()方法是遇到标签结束时调用的方法EVAL_PAGE表
+示处理完标签后继续执行标签之后的JSP页面。另一个返回值SKIP_PAGE表示不
+处理标签之后的JSP网页。 
+  public int doEndTag() throws JspException { 
+    //代码主体省略请查看源码 
+    return EVAL_PAGE; //处理完标签后继续执行标签之后的JSP页面 
+  }   
+doEndTag()方法中部分比较重要的代码说明 
+  使用pageContext对象在JSP页面上下文取得请求不过请注意
+pageContext它定义在javax.servlet.jsp.tagext.TagSupport中而不是在
+BodyTagSupport中因为BodyTagSupport继承了TagSupport 
+  //使用pageContext对象在JSP页面上下文取得请求 
+  HttpServletRequest request = 
+(HttpServletRequest)pageContext.getRequest();     
+  取得请求中的pageID值这个pageID值在每个jsp页面中放在meta标签
+中通过sitemesh装饰器取出放到request中。 
+  /* 
+  * 从请求中得到pageID值即每个JSP里meta的content值 
+  * 与XML文件中book元素的id属性值一致 
+  */ 
+  String pageID = (String)request.getAttribute("pageID");     
+将所有的catalog元素取出放到List集合中这里是只取得catalog这一层级
+的元素实质就是catalogs中只有两个对象一个是id="catalog-program"另一个是id="catalog-system"使用dom4j我们会发现处理元素非常容易API
+相当的丰富想写成什么样完全凭你自己的想法。 
+  //将所有的catalog元素取出放到List集合 
+  List catalogs = 
+ResourceManage.getCoreModel().selectNodes("//catalog");      
+  看看前面介绍的getElementByID这个方法这个currentCatalog所表示就
+是pageID所在的catalog元素。上面的代码是为了和下面的代码结合来判断当
+前的菜单是否为选中加入CSS样式显示。 
+  //pageID所在的catalog元素主要用来判断当前菜单是否被选中 
+  Element currentCatalog = 
+(Element)ResourceManage.getElementByID(pageID); 
+从BodyContent中将标签体缓存流读取出来标签在
+WebRoot/decorators/main.jsp中 
+<a href="[url]" title="[description]" 
+onmouseover="self.status='[description]';return true;" 
+onmouseout="self.status='';return true;">[name]</a> 
+  String value = getBodyContent().getString(); //得到标签体   
+  Catalogs里面是两个catalog对象循环遍历取出将标签体中的[id]、
+[url]、[name]、[description]替换为XML文件中的属性值这样主菜单标签就
+生成了。 
+  for (int i=0; i<catalogs.size(); i++) { 
+    Element catalog = (Element)catalogs.get(i); //catalog元素对象 
+    String value = getBodyContent().getString(); //得到标签体 
+    /* 
+     * 将标签体中的[id]、[url]、[name]、[description] 
+     * 替换为XML文件中的属性值 
+     * attributeValue方法是取属性值 
+     */ 
+    if (value != null) { 
+      value = StringUtils.replace(value, "[url]", request 
+            .getContextPath() 
+            + "/" + catalog.attributeValue("url"));       
+      value = StringUtils.replace(value, 
+"[name]",catalog.attributeValue("name")); 
+      value = StringUtils.replace(value, "[description]",catalog. 
+          attributeValue("description"));     } 
+    String css = getCss(); 
+    //对当前选中菜单添加CSS样式 
+    if (catalog.equals(currentCatalog)) { 
+      css = getCurrentcss(); 
+    } 
+    buf.append("<li class="").append(css).append("">"); 
+    if (i > 0) { 
+      buf.append(" | "); 
+    } 
+    buf.append(value).append("</li>"); 
+  } 
+ 2、导航菜单及侧边栏菜单标签 
+  导航菜单每个catalog下都有两个而侧边栏菜单则在item下定义这两
+个标签类与主菜单的标签类没有太大的区别主要就是生成标签体匹配CSS
+样式因此代码中相同的部分我不再细述只说一下不同的地方。 
+  在tag包下创建NavTag类和SideTag类标签属性与MainTag一样只是
+SideTag多了一个headercss属性这是在页面显示时加在边栏上当前选中项
+左侧小箭头的CSS样式不清楚的话请运行程序后观察。 
+  NavTag.java 
+  根据pageID找到此元素对象 
+  //根据pageID找到此元素对象即book元素对象 
+  Element current = ResourceManage.getSingleElementById(pageID);      
+如果current不为空取得父节点其为item元素。根据pageID值如果为
+695043则subnav为id="item-program-java"的item元素如果为691245
+则subnav为id="item-program-database"的item元素。这个subnav的作用也
+是用来判断当前的菜单是否为选中加入CSS样式显示。 
+  Element subnav = null; 
+  if (current != null) { 
+    subnav = current.getParent(); //取得父节点即item元素 
+  }   
+  SideTag.java 
+  在SideTag中也有上面的代码但是subnav不再与CSS有关而是取得它
+的所有子元素集合即book元素集合然后遍历所有book节点取出属性值放
+入标签体中再输出到页面。   我注释写得很详细请查看代码了解细节。 
+  4、创建StringUtils.java 
+  在util包下创建StringUtils类这个类作为字符串处理类。添加public 
+static String replace(String string, String oldString, String newString)
+方法它的作用就是将标签体中的[id]、[url]、[name]、[description]替换为
+XML文件中的属性值。如果被替换的字符串在标签体中有多个也能将它全部替
+换。 
+/**    * 将string中的oldString全部替换为newString    * @param string 原始字符串    * @param oldString 被替换的字符串    * @param newString 要替换的字符串    * @return 返回替换完后的新string    */   public static String replace(String string, String oldString, String 
+newString) {     if (string == null) {       return null;     }     int i = 0;     //判断string中是否有被替换的字符串i其实是索引值     if ((i = string.indexOf(oldString, i)) >= 0) {       char[] string2 = string.toCharArray(); //字符串放入数组       char[] newString2 = newString.toCharArray(); //要替换的字
+符串       int oLength = oldString.length(); //被替换的字符串的长度       StringBuilder buf = new StringBuilder(string2.length);       /*        * 从索引0开始按i值的长度在string2数组中截取字符        * 将截取的字符放到buf中接着再加入要替换的内容        */       buf.append(string2, 0, i).append(newString2);       i += oLength; //得到被替换字符结束位置的索引       int j = i;       /*        * 查找string中是否仍然含有被替换字符串        * 使用循环将所有oldString换成newString        */       while ((i = string.indexOf(oldString, i)) > 0) {         buf.append(string2, j, i - j).append(newString2);         i += oLength; //得到被替换字符结束位置的索引         j = i;       }       /*        * 截取string2数组中从索引j开始        * string2.length-j的长度加到buf中        * 其实就是在buf中补全标签体        */       buf.append(string2, j, string2.length - j);       return buf.toString();     }     return string;   }  
+ 
+如果看注释就能懂那最好不过如果不明白在这上面打个断点调试一下就会
+十分清楚了。这个方法是Openfire中的源代码不过全是E文大象先也看不
+明白后来调试了一下知道是怎么回事了特加上注释和大家一起分享这个好
+东东。 
+  写完了自定义标签类我们还需要自定义标签文件在WEB-INF目录下新建
+demo.tld代码不帖出来了使用源码中的就行。 
+  5、装饰器 
+  后台的Java类我们全部写完了现在开始完成前台部分在页面显示上
+Openfire使用了sitemesh装饰器框架它能帮助我们在由大量页面构成的项目
+中创建一致的页面布局和外观如一致的导航条一致的banner一致的版权
+等等。至于怎样使用sitemesh这里不作介绍了请自行去搜索相关资料这部
+分内容网上很多的sitemesh比较简单很容易上手。 
+  使用装饰器需要导入JAR包在本例中大象使用的是sitemesh-2.2.1.jar
+包将jar包加到WEB-INF/lib目录中然后修改web.xml添加如下代码 
+  <filter>  
+    <filter-name>sitemesh</filter-name>  
+    
+<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</fil
+ter-class>  
+  </filter >  
+  <filter-mapping>  
+    <filter-name>sitemesh</filter-name>  
+    <url-pattern>/*</url-pattern>  
+  </filter-mapping>    然后在WEB-INF下新建decorators.xml文件
+内容如下 
+  <decorators defaultdir="/decorators"> 
+    <decorator name="main" page="main.jsp">       <pattern>/index.jsp</pattern> 
+      <pattern>/book_*.jsp</pattern> 
+    </decorator> 
+  </decorators>  
+请注意defaultdir后面的值这是你放装饰器页面的目录位置。本例中在
+WebRoot目录下新建decorators文件夹再在里面新建main.jsp这个就是装
+饰器页面了。<pattern></pattern>之间的内容就是需要被装饰的页面*号是通
+配符可以代替任何字符。/book_*.jsp表示使用main.jsp装饰WebRoot目
+录下所有以book_开头的页面这里定义的name="main"可以在装饰器页面中
+使用因为不一定只有一个装饰器页面可能会有很多个。因此在装饰器页面
+中为了布局效果会联合使用多个装饰器来修饰页面以达到简化布局、降低维护
+难度、提高工作效率的作用。另外在使用时请注意被装饰页面与装饰器页面之
+间的相对位置。 
+  6、main.jsp 
+  在页面中引用被装饰页面的page对象<decorator:usePage 
+id="decoratedPage" /> 
+  使用decoratedPage取得被装饰页面中meta标签的content值再将它放
+到request请求中这样在自定义标签类中我们使用pageContext对象得到的请
+求就是这个。 
+  <% 
+    request.setAttribute("pageID", 
+decoratedPage.getProperty("meta.pageID")); 
+  %>     
+  显示被装饰页面<title></title>之间的标题<decorator:title /> 
+  显示被装饰页面body中的内容被装饰页面的主体都将在这里显示
+<decorator:body/> 
+  除此之外在main.jsp中我们还发现大量的使用div来放置元素并且
+每个标签中都有id属性没有看到任何的CSS样式其实是通过id属性在
+demo.css文件进行了定义所有的布局和显示效果都在这个文件中进行了定义
+这样就达到了内容呈现与样式布局相分离的结果方便以后的修改和维护这种
+做法用的人现在已经越来越多大家赶快行动吧 
+sitemesh中还有一个sitemesh.xml文件如果程序中没有特别需求可以不用
+加入它我们也能在sitemesh-2.2.1.jar中找到
+com.opensymphony.module.sitemesh.factory目录下有一个
+sitemesh-default.xml文件这就是sitemesh默认的配置文件。   7、显示页面 
+  在tag-console.xml的url属性里定义了显示页面接下来我们把这些页面
+都做好内容很简单本文只是演示Openfire的菜单设计思想用容易懂的例
+子来说明以便大家能够快速了解。 
+  index.jsp页面的代码 
+<%@ page contentType="text/html; charset=utf-8" %> 
+<html> 
+<head> 
+  <title>Struts2 深入详解</title> 
+  <meta name="pageID" content="695043"/> 
+</head> 
+<body> 
+  <center><h1>Struts2 深入详解</h1></center> 
+</body> 
+</html>     
+  其余的几个页面内容大致一样把content值、<title></title>标题、以
+及<center><h1></h1></center>之间的内容换成book元素中定义的属性值即
+可。 
+  demo.css 
+  在WebRoot目录下新建css文件夹再在里面创建demo.css文件。我直接
+把Openfire的样式表COPY过来。然后把里面没用的部分删除了体积小了不少。 
+  图片 
+  我从Openfire中只取了本例用到的图片如果是专业美工完全可以设计
+出自己的菜单风格。 
+  8、发布项目 
+  我们在web.xml中可以加入下面一段代码将index.jsp作为我们的默认显
+示页面 
+  <welcome-file-list> 
+    <welcome-file>index.jsp</welcome-file> 
+  </welcome-file-list>  
+  把demo部署到%TOMCAT_HOME%webapps目录下启动tomcat在地址栏中输
+入http://localhost:8080/demo 看看效果是不是和下面的一样   大家觉得这个菜单的显示方式怎么样呢偶觉得这用来做后台管理到还是
+不错滴如果是其它的信息管理系统那这个配置文件的内容就会很恐怖了其
+实还可以把XML中的中文信息保存到国际化资源文件中这样可以实现多语种版
+本以及简化维护。各位有什么好的意见或建议可以和我留言或E-mail给我。
+大象也想把自己的一点心得拿出来和大家分享。 在Eclipse中配置opernfire 说 明  开 发 环 境 IDEEclipse 3.3.2+JDK1.6+Ant 
+1.7+Openfire_src_3_5_1.zip  
+ 
+1. 如果代码中使用了import testng.xxx语句就需要导入
+testng-5.8-jdk15.jar类库  
+ 
+2. 对于警告信息是没有关系的。因为这些警告信息是使用1.5以上版
+本JDK时候才出现的使用JDK1.4是不会出现这些警告信息的。因为
+这些代码中的有 些是使用JDK 1.4编写的而JDK1.4不支持泛型而
+JDK 1.5和JDK1.6是支持泛型的。这些警告信息主要是提示将这些非泛
+型的代码修改为更加高级的方法——泛型所以这些警告信息是不影响
+代码结果的。  
+ 
+如果需要修改为泛型也是可以使用泛型来处理相关的集合类。  
+ 
+3. 在使用ant进行编译的时候在ant视图中可能会出现警告如下信息  
+ 
+taskdef class com.install4j.install4jtask cannot found  
+ 
+这个主要是要安装用来打包Java应用程序的install4j.exe程序要安装
+到其默认的安装路径下。也就是C:\Program Files\目录下即可。  
+ 4. 在源码里面有一个文件夹里有个打包的图标双击那个图标install4j
+就会读取你在build.xml文件里的信息、在里面完成做界面等打包工作。  
+ 
+ 
+ 
+ 
+ 
+编译调试的环境IDEEclipse 3.3.2+JDK1.6+Ant内置
++openfire_src_2008-06-04.zip  
+ 
+在Windows操作系统下编译、调试openfire之前需要确保HTTP SSL
+服务已经启动。否则会出现各种错误信息。  
+ 
+1. 获取Openfire源代码  
+ 
+从 官 方 网 站 上 直 接 下 载 官 方 发 布 版 本 的 源 代 码
+openfire_src_2008-06-04.zip源代码压缩包  
+ 
+2. 创建openfire工程  
+ 
+将openfire_src_2008-06-04.zip解压后目录下除了READEME.html、
+LICENSE.html和changelog.html三个网页文件之外有下面四个子目录。  
+ 
+build目录build目录下收录的是生成安装文件例如rpm所要的一
+些文件例如JRE等。  
+ 
+resources目录resources目录下收录的是一些为实现国际化i18n和
+本地化的一些编码文件例如英文中文法文德文等。  
+ documentation目录documentation目录下收录的是一些关于Openfire
+安装和配置的信息但最终要的是这里有Openfire开发的Javadoc。  
+ 
+src目录这个src文件夹就是我们想要的Openfire源代码了这下面又
+有许多文件夹我们只要Java文件夹就好这里面实现的Openfire的
+核心功能通过它就可以调试Openfire。  
+ 
+如果您是做二次开发为了定制自己的服务器端就可以采用这样方法  
+ 
+1新建工程File->New->Project->Java Project单击Next在Project 
+name文本框中输入工程名openfire单击Finish  
+ 
+2解压后得到的openfire_src_3_5_1\src目录下所有内容复制到新建
+的工程目录workspace\openfire下  
+ 
+3在Package Explorer视图中右击openfire工程选择Properties
+在 弹 出 的 对 话 框 中 选 择Libraries->Add JARs.. 把
+openfire_src_3_5_1/build/lib目录下的*.jar类库全部添加进来选择
+Source标签页Add Folder..选中src/java目录前的复选框点击OK
+点击OK按钮。  
+ 
+在Eclipse中将此Java文件夹当成源代码文件夹新建工程建立新工
+程后观察Openfire所import的包发现Openfire 用了许多开源工具
+而这些库都在上文提到的Build目录的lib目录下将Openfire用到的
+库都添加到这个新建工程的Referenced Libraries中。或者如果这样一个一个添加比较麻烦的话还有一个方法就是从你安装好的Openfire服务
+器目录下的lib目录中例 如”D:\Program Files\Openfire\lib”或
+“/usr/local/openfire/lib”找到openfire.jar打开后将里面的org 
+/jivesoftware删除重新打包成jar并添加到这个新建工程的Referenced 
+Libraries中这样就可以省去了很多类似的工作。  
+ 
+4但是这样新建的openfire项目没有打包部署需要开发者自己完
+成相应的工作。  
+ 
+注意新建工程之后可能会出现一些警告信息下面对此予以说明  
+ 
+对于警告信息是没有关系的。因为这些警告信息是使用1.5以上版本
+JDK时候才出现的使用JDK1.4是不会出现这些警告信息的。因为这
+些代 码中的有些是使用JDK 1.4编写的而JDK1.4不支持泛型而JDK 
+1.5和JDK1.6是支持泛型的。这些警告信息主要是提示将这些非泛型的
+代码修改为更加高级的方法——泛型所以这些警告信息是不影响代码
+结果的。如果 需要修改为泛型也是可以使用泛型来处理相关的集合
+类。  
+ 
+3. 编译工程  
+ 
+openfire是用ant构建的所以要先设置使得eclipse中每次编译都使用
+内置的ant工具保证编译的正确执行。同时要在Eclipse中设置为使
+用JDK作为JVM如果使用JRE作为JVM编译就会失败。  
+ 因为openfire在Windows下是使用install4j打包成.exe格式的安装文件
+的所以需要安装install4j。否则在使 用ant进行编译的时候在ant
+视图中可能会出现警告如下信息taskdef class com.install4j.install4jtask 
+cannot found。这主要是要安装用来打包Java应用程序的install4j.exe程
+序而且将要安装到其默认的安装路径C:\Program Files\install4j下。  
+ 
+注意有时候在Windows下安装的时候可能会出现如下图所示的错
+误而导致无法安装  
+ 
+但是只要将安装程序install4j_windows_4_1_2_with_jre.exe拷贝到上
+面提示的目录下进行安装就可以安装成功如复制到C:\Documents and 
+Settings\liaolonglong目录下。  
+ 
+1在eclipse中点击Window->Show View->Ant打开Ant窗口  
+ 
+2在Ant 视图中单击右键在弹出的快捷菜单中选择Add 
+Buildfiles..  
+ 
+3在弹出的对话框中展开openfire/build文件夹选择build目录下
+的build.xml点击OK  
+ 
+4在Ant视图中, 展开Openfire XMPP Server双击 openfiredefault
+编译工程  
+ 
+5如果在Console视图中显示“BUILD SUCCESSFUL”就表示编译成
+功。   
+ 
+ 
+ 
+7. 创建项目Builder  
+ 
+1在eclipse的菜单栏中选择Run->Open Run Dialog...在弹出的
+对话框左侧的树形结构中选择Java Application单击右键选择New
+创建启动配置。  
+ 
+2 在Run窗口的Main选项卡中, 修改Name文本框中的值改成
+包含要启动的类的工程名openfire  
+ 
+3在Run窗口的Main选项卡中点Browse按钮选择openfire  
+ 
+4在Run窗口的Main选项卡中点Search按钮选择Main class
+为  
+ 
+org.jivesoftware.openfire.starter.ServerStarter单击Apply按钮。这是
+openfire的启动类  
+ 
+5点击进入Arguments选项卡在VM arguments文本框中输入  
+ 
+-DopenfireHome="${workspace_loc:openfire}/target/openfire"  
+ 
+单击Apply按钮。这个是用于eclipse执行java命令时传递的参数这
+样openfire程序可以通过System.getProperty(“openfireHome”)得到
+openfire的本地位置。  
+ 6点击进入Classpath选项卡选中User Entries这样Advanced...
+就处于可用状态点击Advanced...按钮在Advanced Options页面选
+择Add Folders, 单击OK。默认情况下已经将工程openfire添加到了
+这里而不需要进行该项操作如果有多个工程的时候才需要执行该项
+操作。  
+ 
+选择openfire\src\i18n, 点OK按钮将这个文件夹加入到Classpath选项卡
+中同样的方式把openfire\src\resources目录下的jar文件夹也加到
+Classpath选项卡中。  
+ 
+11在Common选项卡中勾选Run复选框单击Apply按钮。  
+ 
+设置完毕这样以后在run这个工程的时候就会按照正确的配置进行了
+debug的设置和run的设置类似不再多说。  
+ 
+ XMPP协议相关资料   http://www.cnpaf.net/forum/viewthread.php?tid=27299 
+  http://blog.csdn.net/wenzuodan/archive/2008/10/15/3078512.aspx 
+  http://xmpp.org/rfcs/rfc3921.html 
+  http://xmpp.org/extensions/xep-0049.html 网络资料  xmpp with openfire之一 xmpp and openfire 关键字: xmpp, openfire, spark, smack  
+XMPP  
+  百度百科  
+ 1、什么是XMPP   
+  XMPP可扩展消息处理现场协议是基于可扩展标记语言XML的协议
+它用于即时消息IM以及在线现场探测。它在促进服务器之间的准即时操作。
+这个协议可能最终允许因特网用户向因特网上的其他任何人发送即时消息即使
+其操作系统和浏览器不同。  
+  XMPP的前身是Jabber一个开源形式组织产生的网络即时通信协议。XMPP
+目前被IETF国际标准组织完成了标准化工作。标准化的核心结果分为两部分  
+  核心的XML流传输协议  
+  基于XML流传输的即时通讯扩展应用  
+  XMPP的核心XML流传输协议的定义使得XMPP能够在一个比以往网络通信协
+议更规范的平台上。借助于XML易于解析和阅读的特性使得XMPP的协议能够
+非常漂亮。  
+  XMPP的即时通讯扩展应用部分是根据IETF在这之前对即时通讯的一个抽象
+定义的与其他业已得到广泛使用的即时通讯协议诸如AIMQQ等有功能完整
+完善等先进性。  
+  XMPP的扩展协议Jingle使得其支持语音和视频。  
+  2、XMPP的基本网络结构是怎样的  
+  XMPP中定义了三个角色客户端服务器网关。通信能够在这三者的任
+意两个之间双向发生。服务器同时承担了客户端信息记录连接管理和信息的路
+由功能。网关承担着与异构即时通信系统的互联互通异构系统可以包括SMS短
+信MSNICQ等。基本的网络形式是单客户端通过TCP/IP连接到单服务器
+然后在之上传输XML。  
+  3、XMPP通过TCP传什么了  
+  传输的是与即时通讯相关的指令。在以前这些命令要么用2进制的形式发送
+比如QQ要么用纯文本指令加空格加参数加换行苻的方式发送比如MSN。
+而XMPP传输的即时通讯指令的逻辑与以往相仿只是协议的形式变成了XML格
+式的纯文本。这不但使得解析容易了人也容易阅读了方便了开发和查错。而
+XMPP的核心部分就是一个在网络上分片断发送XML的流协议。这个流协议是XMPP
+的即时通讯指令的传递基础也是一个非常重要的可以被进一步利用的网络基础
+协议。所以可以说XMPP用TCP传的是XML流。  
+  4、举个例子看看所谓的XML流是什么样子的  
+  客户端<?xml version='1.0'?>  
+  <stream:stream  
+  to='example.com'  
+  xmlns='jabber:client'  
+  xmlns:stream='http://etherx.jabber.org/streams'  
+  version='1.0'>  
+  服务器<?xml version='1.0'?>    <stream:stream  
+  from='example.com'  
+  id='someid'  
+  xmlns='jabber:client'  
+  xmlns:stream='http://etherx.jabber.org/streams'  
+  version='1.0'>  
+  ...其他通信...  
+  客户端<message from='juliet@example.com'  
+  to='romeo@example.net'  
+  xml:lang='en'>  
+  客户端 <body>Art thou not Romeo, and a Montague?</body>  
+  客户端</message>  
+  服务器<message from='romeo@example.net'  
+  to='juliet@example.com'  
+  xml:lang='en'>  
+  服务器<body>Neither, fair saint, if either thee dislike.</body>  
+  服务器</message>  
+  客户端</stream:stream>  
+  服务器</stream:stream>  
+  以文档的观点来看客户端或服务器发送的所有XML文本连缀在一起从
+<stream>到</stream>构成了一个完整的XML文档。其中的stream标签就是所谓
+的XML Stream。在<stream>与</stream>中间的那些<message>...</message>这
+样的XML元素就是所谓的XML StanzaXML节。XMPP核心协议通信的基本模
+式就是先建立一个stream然后协商一堆安全之类的东西中间通信过程就是
+客户端发送XML Stanza一个接一个的。服务器根据客户端发送的信息以及程
+序的逻辑发送XML Stanza给客户端。但是这个过程并不是一问一答的任何
+时候都有可能从一个方发信给另外一方。通信的最后阶段是</stream>关闭流
+关闭TCP/IP连接。  
+ 
+可以到http://xmpp.org/查询XMPP的介绍和文档  
+ 
+非常不巧的是当我写这篇BLOG的时候XMPP中文翻译计划网站
+http://www.jabbercn.org/正在更新网站管理员称原有的数据稍后将转入新
+wiki中。  
+ 
+当前主流操作系统下的XMPP客户端实现有  
+Apple MacOS  
+ 
+Adium  
+iChat  
+Console  
+ 
+centericq  
+Fama IM  GNU Freetalk  
+mcabber  
+Cross-Platform (Linux/Mac/Windows)  
+ 
+Coccinella  
+Jabbim  
+Jeti  
+Pidgin  
+Psi  
+Spark  
+Tkabber  
+Linux/Unix  
+ 
+Ayttm  
+BitlBee  
+Empathy  
+Gajim (also Windows)  
+Gossip  
+jabber.el  
+Kopete  
+Sim-IM  
+SIP Communicator  
+Microsoft Windows  
+Exodus  
+JAJC  
+Miranda IM  
+Pandion  
+Trillian Pro  
+ 
+Mobile Phone / PDA  
+ 
+Bombus  
+IM+  
+imov Messenger  
+Jabber Mix Client  
+Lampiro  
+mChat  
+OctroTalk  
+Talkonaut  
+Vayusphere  
+Web Browser  
+ 
+Claros Chat  
+iJab  Jabbear  
+JWChat  
+SamePlace  
+SparkWeb  
+TrophyIM  
+ 
+http://xmpp.org/software/clients.shtml  
+ 
+xmpp的服务器端实现  
+Citadel  
+CommuniGate Pro  
+djabberd  
+ejabberd  
+IceWarp  
+iChat Server  
+in.jabberd  
+Isode M-Link  
+jabberd 1.x  
+jabberd 2.x  
+Jabber XCP  
+Jerry Messenger  
+Openfire  
+OpenIM  
+Prosody  
+psyced  
+Sun Java System Instant Messaging  
+Tigase  
+http://xmpp.org/software/servers.shtml  
+ 
+openfire  
+openfire是Jive Software的XMPP开源跨平台服务端实现扩展灵活插件丰
+富有非常好的社区支持当前版本3.6.2。在以后的文章中我将逐渐介绍一
+些openfire的功能及二次开发。  
+*同时Jive Software还有非常棒的spark客户端实现及smack开发包。  
+ 
+openfire最新版本下载
+http://www.igniterealtime.org/projects/openfire/index.jsp   
+ 
+ 
+ 
+ 
+ 
+ xmpp with openfire之二 openfire安装 关键字: xmpp openfire安装 spark smack  
+windows下的安装  
+ 
+1.首先到http://www.igniterealtime.org/projects/openfire/index.jsp下
+载最新安装包  
+*注意有包含JRE版本和不包含JRE版本不含JRE版本需要 JRE 1.5.0及以上
+的支持  
+ 
+ 
+2.安装或解压完毕启动bin目录中的openfire.exe  
+*如果希望将openfirep添加到服务中还可以使用以下命令:  
+openfire-service /install -- 安装服务  
+openfire-service /uninstall -- 卸载服务  
+openfire-service /start -- 启动服务  
+openfire-service /stop -- 停止服务  
+ 
+然后打开浏览器http://127.0.0.1:9090/进入step by step 安装界面  
+ 
+第一步选择语言 支持中文  
+ 
+第二步配置域名管理端口号  
+ 
+第三步配置数据库  
+可以选择使用外部数据库或自带的HSQLDB建议使用外部数据库  
+OPENFIRE3.6.2支持的外部数据库有  
+mysql  
+oracle  
+sqlserver  
+postresql  
+db2  
+选择要使用的数据库后配置一下连接  
+*注意openfire默认没有提供oracle的驱动将你的oracle拷到lib目录下即
+可  
+如果链接成功openfire会自动初始化数据库完成数据库配置  
+*在resources\database下有相关数据库的sql脚本  
+ 
+第四步用户和组  
+openfire的用户/组支持  
+数据库  
+LDAP  
+Clearspace   
+第五步管理员密码  
+设置管理员的邮箱及密码  
+ 
+完成上述操作后openfire的安装就完成了  
+ 
+再次打开http://127.0.0.1:9090/ 显示登录框输入刚才配置的管理员密码进
+入  
+*默认的管理员用户为admin  
+ 
+ 
+现在就可以用spark小试登录了  
+下载spark最新版
+http://www.igniterealtime.org/projects/spark/index.jsp  
+安装完毕运行后  
+点击账号[accounts]  
+输入用户名、密码、服务器然后创建账号[create account]  
+创建成功后 即可登录了。(虽然一个好友也没有)  xmpp with openfire之三 openfire扩展小试 整合现有系统
+用户 关键字: xmpp openfire spark 用户 组 jdbcauthprovider  
+openfire服务器配置先跳过介绍我想在文章里用到的时候再插入一些介绍。  
+ 
+openfire扩展小试 整合现有系统用户  
+ 
+如果我想使用现有系统的用户/组(部门)而不想使用openfire再去管理一套用
+户/组用openfire可以非常方便的整合现有系统用户。  
+ 
+进入openfire管理控制台-服务器服务管理器系统属性  
+可以发现如下配置  
+provider.auth.className  
+org.jivesoftware.openfire.auth.DefaultAuthProvider  
+*用户验证  
+provider.group.className  
+org.jivesoftware.openfire.group.DefaultGroupProvider  
+*获取组相关数据  
+provider.user.className  
+org.jivesoftware.openfire.user.DefaultUserProvider  
+*获取用户相关数据  
+这些Provider是openfire默认自己管理用户组  
+ 但同时openfire还提供了支持JDBC相关的Provider可以从其它的数据源获
+取用户/组数据  
+将上面三个属性分别修改为  
+org.jivesoftware.openfire.auth.JDBCAuthProvider  
+org.jivesoftware.openfire.group.JDBCGroupProvider  
+org.jivesoftware.openfire.user.JDBCUserProvider  
+ 
+然后需要配置一下数据源添加如下属性  
+jdbcProvider.driver  
+*数据源驱动  
+jdbcProvider.connectionString  
+*连接字符串  
+ 
+对每一个JDBC Provider需要配置相关的SQL语句和属性在系统属性里添加项
+目  
+ 
+JDBCAuthProvider  
+jdbcAuthProvider.passwordSQL  
+*获取用户密码的SQL  
+*输入参数登录名  
+*输入列密码  
+*例SELECT pwd FROM user WHERE name=?  
+jdbcAuthProvider.passwordType  
+*密码类型可以是:plain(文本),md5,sha1  
+*如果你的密码加密不为以上三种 就需要自己提供一个AuthProvider在下一
+章会专门介绍  
+ 
+ 
+JDBCGroupProvider  
+jdbcGroupProvider.allGroupsSQL  
+*获取所有组的SQL  
+*输入参数无  
+*输出列:组的KEY  
+*例SELECT sn FROM department  
+ 
+jdbcGroupProvider.descriptionSQL  
+*获取组的名称描述  
+*输入参数组记录的KEY  
+*输出列:组的名称描述  
+*例SELECT name FROM department where sn=?  
+ 
+jdbcGroupProvider.groupCountSQL  
+*获取组的数量  
+*输入参数组的KEY  *输出列:组的数量  
+*例SELECT count(sn) FROM department  
+ 
+jdbcGroupProvider.loadAdminsSQL  
+*获取组的管理员  
+*输入参数组记录的KEY  
+*输出列:组管理员的KEY  
+*例SELECT admin FROM department where sn=?  
+ 
+jdbcGroupProvider.loadMembersSQL  
+*获取组的成员  
+*输入参数组的KEY  
+*输出列:组成员的KEY集合  
+*例SELECT usersn FROM department_user where departmentsn=?  
+ 
+jdbcGroupProvider.userGroupsSQL  
+*获取成员的组  
+*输入参数成员的KEY  
+*输出列:成员所性组的KEY  
+*例SELECT departmentsn FROM department_user where usersn=?  
+ 
+ 
+ 
+JDBCUserProvider  
+jdbcUserProvider.allUsersSQL  
+*获取所有用户  
+*输入参数无  
+*输出列:用户的KEY  
+*例SELECT sn from user  
+ 
+jdbcUserProvider.userCountSQL  
+*获取所有用户数量  
+*输入参数无  
+*输出列:用户数量  
+*例SELECT count(sn) from user  
+ 
+jdbcUserProvider.loadUserSQL  
+*获取用户信息  
+*输入参数用户的KEY  
+*输出列:登录名名称,email(至少应该这三列下面要用到)  
+*例SELECT loginname,name,email from user where sn =?  
+ 
+jdbcUserProvider.emailField  
+*指定用户email的列名如email  jdbcUserProvider.nameField  
+*指定用户名称的列名如name  
+jdbcUserProvider.usernameField  
+*指定用户登录名的列名如loginname  
+ 
+ 
+最后 还需要配置新的管理员用户  
+admin.authorizedJIDs  
+*指定新数据源中的管理员用户注意是是完整JID(user@域名)  
+*例:admin@server.cn  
+ 
+配置好如上属性 重启openfire  
+使用admin.authorizedJIDs中的用户名登录openfire管理控制台  
+如果配置成功进入openfire管理控制台-用户/组  
+就可以看到你数据源中的用户/组信息了  
+同时可以使用spark登录进行测试  
+ 
+ 
+此外如果在调试过程中出现问题 无法登录openfire管理控制台  
+可以直接修改openfire数据库中的 OFPROPERTY表   
+ 
+ xmpp with openfire之四 扩展的AuthProvider 关键字: xmpp openfire authprovider jdbcauthprovider  
+上一篇中提到jdbcAuthProvider.passwordType提供了三种方式  
+ 
+如果你的密码加密规则不是这三种方式可以自己进行扩充  
+ 
+首先下载openfire的源码  
+http://www.igniterealtime.org/downloads/source.jsp  
+ 
+打开org.jivesoftware.openfire.auth.JDBCAuthProvider  
+Java代码  
+1. package org.jivesoftware.openfire.auth;    
+2.    
+3. import org.jivesoftware.database.DbConnectionManager;    
+4. import org.jivesoftware.openfire.XMPPServer;    
+5. import org.jivesoftware.openfire.user.UserAlreadyExistsExceptio
+n;    6. import org.jivesoftware.openfire.user.UserManager;    
+7. import org.jivesoftware.openfire.user.UserNotFoundException;    
+8. import org.jivesoftware.util.JiveGlobals;    
+9. import org.jivesoftware.util.Log;    
+10.import org.jivesoftware.util.StringUtils;    
+11.   
+12.import java.sql.*;    
+13.   
+14./**   
+15. * The JDBC auth provider allows you to authenticate users agai
+nst any database   
+16. * that you can connect to with JDBC. It can be used along with
+ the   
+17. * {@link HybridAuthProvider hybrid} auth provider, so that you
+ can also have   
+18. * XMPP-only users that won't pollute your external data.<p>   
+19. *   
+20. * To enable this provider, set the following in the system pro
+perties:   
+21. * <ul>   
+22. * <li><tt>provider.auth.className = org.jivesoftware.openfire.
+auth.JDBCAuthProvider</tt></li>   
+23. * </ul>   
+24. *   
+25. * You'll also need to set your JDBC driver, connection string,
+ and SQL statements:   
+26. *   
+27. * <ul>   
+28. * <li><tt>jdbcProvider.driver = com.mysql.jdbc.Driver</tt></li
+>   
+29. * <li><tt>jdbcProvider.connectionString = jdbc:mysql://localho
+st/dbname?user=username&amp;password=secret</tt></li>   
+30. * <li><tt>jdbcAuthProvider.passwordSQL = SELECT password FROM 
+user_account WHERE username=?</tt></li>   
+31. * <li><tt>jdbcAuthProvider.passwordType = plain</tt></li>   
+32. * <li><tt>jdbcAuthProvider.allowUpdate = true</tt></li>   
+33. * <li><tt>jdbcAuthProvider.setPasswordSQL = UPDATE user_accoun
+t SET password=? WHERE username=?</tt></li>   
+34. * </ul>   
+35. *   
+36. * The passwordType setting tells Openfire how the password is 
+stored. Setting the value   
+37. * is optional (when not set, it defaults to "plain"). The vali
+d values are:<ul>   38. *      <li>{@link PasswordType#plain plain}   
+39. *      <li>{@link PasswordType#md5 md5}   
+40. *      <li>{@link PasswordType#sha1 sha1}   
+41. *  </ul>   
+42. *   
+43. * @author David Snopek   
+44. */   
+45.public class JDBCAuthProvider implements AuthProvider {    
+46.   
+47.    private String connectionString;    
+48.   
+49.    private String passwordSQL;    
+50.    private String setPasswordSQL;    
+51.    private PasswordType passwordType;    
+52.    private boolean allowUpdate;    
+53.   
+54.    /**   
+55.     * Constructs a new JDBC authentication provider.   
+56.     */   
+57.    public JDBCAuthProvider() {    
+58.        // Convert XML based provider setup to Database based  
+  
+59.        JiveGlobals.migrateProperty("jdbcProvider.driver");    
+60.        JiveGlobals.migrateProperty("jdbcProvider.connectionStr
+ing");    
+61.        JiveGlobals.migrateProperty("jdbcAuthProvider.passwordS
+QL");    
+62.        JiveGlobals.migrateProperty("jdbcAuthProvider.passwordT
+ype");    
+63.        JiveGlobals.migrateProperty("jdbcAuthProvider.setPasswo
+rdSQL");    
+64.        JiveGlobals.migrateProperty("jdbcAuthProvider.allowUpda
+te");    
+65.   
+66.        // Load the JDBC driver and connection string.    
+67.        String jdbcDriver = JiveGlobals.getProperty("jdbcProvid
+er.driver");    
+68.        try {    
+69.            Class.forName(jdbcDriver).newInstance();    
+70.        }    
+71.        catch (Exception e) {    
+72.            Log.error("Unable to load JDBC driver: " + jdbcDriv
+er, e);    
+73.            return;    74.        }    
+75.        connectionString = JiveGlobals.getProperty("jdbcProvide
+r.connectionString");    
+76.   
+77.        // Load SQL statements.    
+78.        passwordSQL = JiveGlobals.getProperty("jdbcAuthProvider
+.passwordSQL");    
+79.        setPasswordSQL = JiveGlobals.getProperty("jdbcAuthProvi
+der.setPasswordSQL");    
+80.   
+81.        allowUpdate = JiveGlobals.getBooleanProperty("jdbcAuthP
+rovider.allowUpdate",false);    
+82.   
+83.        passwordType = PasswordType.plain;    
+84.        try {    
+85.            passwordType = PasswordType.valueOf(    
+86.                    JiveGlobals.getProperty("jdbcAuthProvider.p
+asswordType", "plain"));    
+87.        }    
+88.        catch (IllegalArgumentException iae) {    
+89.            Log.error(iae);    
+90.        }    
+91.    }    
+92.   
+93.    public void authenticate(String username, String password) 
+throws UnauthorizedException {    
+94.        if (username == null || password == null) {    
+95.            throw new UnauthorizedException();    
+96.        }    
+97.        username = username.trim().toLowerCase();    
+98.        if (username.contains("@")) {    
+99.            // Check that the specified domain matches the serv
+er's domain    
+100.             int index = username.indexOf("@");    
+101.             String domain = username.substring(index + 1);
+    
+102.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+103.                 username = username.substring(0, index);  
+  
+104.             } else {    
+105.                 // Unknown domain. Return authentication f
+ailed.    
+106.                 throw new UnauthorizedException();    107.             }    
+108.         }    
+109.         String userPassword;    
+110.         try {    
+111.             userPassword = getPasswordValue(username);    
+112.         }    
+113.         catch (UserNotFoundException unfe) {    
+114.             throw new UnauthorizedException();    
+115.         }    
+116.         // If the user's password doesn't match the passwo
+rd passed in, authentication    
+117.         // should fail.    
+118.         if (passwordType == PasswordType.md5) {    
+119.             password = StringUtils.hash(password, "MD5"); 
+   
+120.         }    
+121.         else if (passwordType == PasswordType.sha1) {    
+122.             password = StringUtils.hash(password, "SHA-1")
+;    
+123.         }    
+124.         if (!password.equals(userPassword)) {    
+125.             throw new UnauthorizedException();    
+126.         }    
+127.    
+128.         // Got this far, so the user must be authorized.  
+  
+129.         createUser(username);    
+130.     }    
+131.    
+132.     public void authenticate(String username, String token
+, String digest)    
+133.             throws UnauthorizedException    
+134.     {    
+135.         if (passwordType != PasswordType.plain) {    
+136.             throw new UnsupportedOperationException("Diges
+t authentication not supported for "   
+137.                     + "password type " + passwordType);    
+138.         }    
+139.         if (username == null || token == null || digest ==
+ null) {    
+140.             throw new UnauthorizedException();    
+141.         }    
+142.         username = username.trim().toLowerCase();    
+143.         if (username.contains("@")) {    144.             // Check that the specified domain matches the
+ server's domain    
+145.             int index = username.indexOf("@");    
+146.             String domain = username.substring(index + 1);
+    
+147.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+148.                 username = username.substring(0, index);  
+  
+149.             } else {    
+150.                 // Unknown domain. Return authentication f
+ailed.    
+151.                 throw new UnauthorizedException();    
+152.             }    
+153.         }    
+154.         String password;    
+155.         try {    
+156.             password = getPasswordValue(username);    
+157.         }    
+158.         catch (UserNotFoundException unfe) {    
+159.             throw new UnauthorizedException();    
+160.         }    
+161.         String anticipatedDigest = AuthFactory.createDiges
+t(token, password);    
+162.         if (!digest.equalsIgnoreCase(anticipatedDigest)) {
+    
+163.             throw new UnauthorizedException();    
+164.         }    
+165.    
+166.         // Got this far, so the user must be authorized.  
+  
+167.         createUser(username);    
+168.     }    
+169.    
+170.     public boolean isPlainSupported() {    
+171.         // If the auth SQL is defined, plain text authenti
+cation is supported.    
+172.         return (passwordSQL != null);    
+173.     }    
+174.    
+175.     public boolean isDigestSupported() {    
+176.         // The auth SQL must be defined and the password t
+ype is supported.    177.         return (passwordSQL != null && passwordType == Pas
+swordType.plain);    
+178.     }    
+179.    
+180.     public String getPassword(String username) throws User
+NotFoundException,    
+181.             UnsupportedOperationException    
+182.     {    
+183.    
+184.         if (!supportsPasswordRetrieval()) {    
+185.             throw new UnsupportedOperationException();    
+186.         }    
+187.         if (username.contains("@")) {    
+188.             // Check that the specified domain matches the
+ server's domain    
+189.             int index = username.indexOf("@");    
+190.             String domain = username.substring(index + 1);
+    
+191.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+192.                 username = username.substring(0, index);  
+  
+193.             } else {    
+194.                 // Unknown domain.    
+195.                 throw new UserNotFoundException();    
+196.             }    
+197.         }    
+198.         return getPasswordValue(username);    
+199.     }    
+200.    
+201.     public void setPassword(String username, String passwo
+rd)    
+202.             throws UserNotFoundException, UnsupportedOpera
+tionException    
+203.     {    
+204.         if (allowUpdate && setPasswordSQL != null) {    
+205.             setPasswordValue(username, password);    
+206.         } else {     
+207.             throw new UnsupportedOperationException();    
+208.         }    
+209.     }    
+210.    
+211.     public boolean supportsPasswordRetrieval() {    212.         return (passwordSQL != null && passwordType == Pas
+swordType.plain);    
+213.     }    
+214.    
+215.     /**   
+216.      * Returns the value of the password field. It will be
+ in plain text or hashed   
+217.      * format, depending on the password type.   
+218.      *   
+219.      * @param username user to retrieve the password field
+ for   
+220.      * @return the password value.   
+221.      * @throws UserNotFoundException if the given user cou
+ld not be loaded.   
+222.      */   
+223.     private String getPasswordValue(String username) throw
+s UserNotFoundException {    
+224.         String password = null;    
+225.         Connection con = null;    
+226.         PreparedStatement pstmt = null;    
+227.         ResultSet rs = null;    
+228.         if (username.contains("@")) {    
+229.             // Check that the specified domain matches the
+ server's domain    
+230.             int index = username.indexOf("@");    
+231.             String domain = username.substring(index + 1);
+    
+232.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+233.                 username = username.substring(0, index);  
+  
+234.             } else {    
+235.                 // Unknown domain.    
+236.                 throw new UserNotFoundException();    
+237.             }    
+238.         }    
+239.         try {    
+240.             con = DriverManager.getConnection(connectionSt
+ring);    
+241.             pstmt = con.prepareStatement(passwordSQL);    
+242.             pstmt.setString(1, username);    
+243.    
+244.             rs = pstmt.executeQuery();    
+245.    246.             // If the query had no results, the username a
+nd password    
+247.             // did not match a user record. Therefore, thr
+ow an exception.    
+248.             if (!rs.next()) {    
+249.                 throw new UserNotFoundException();    
+250.             }    
+251.             password = rs.getString(1);    
+252.         }    
+253.         catch (SQLException e) {    
+254.             Log.error("Exception in JDBCAuthProvider", e);
+    
+255.             throw new UserNotFoundException();    
+256.         }    
+257.         finally {    
+258.             DbConnectionManager.closeConnection(rs, pstmt,
+ con);    
+259.         }    
+260.         return password;    
+261.     }    
+262.    
+263.     private void setPasswordValue(String username, String 
+password) throws UserNotFoundException {    
+264.         Connection con = null;    
+265.         PreparedStatement pstmt = null;    
+266.         ResultSet rs = null;    
+267.         if (username.contains("@")) {    
+268.             // Check that the specified domain matches the
+ server's domain    
+269.             int index = username.indexOf("@");    
+270.             String domain = username.substring(index + 1);
+    
+271.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+272.                 username = username.substring(0, index);  
+  
+273.             } else {    
+274.                 // Unknown domain.    
+275.                 throw new UserNotFoundException();    
+276.             }    
+277.         }    
+278.         try {    
+279.             con = DriverManager.getConnection(connectionSt
+ring);    280.             pstmt = con.prepareStatement(setPasswordSQL); 
+   
+281.             pstmt.setString(1, username);    
+282.             if (passwordType == PasswordType.md5) {    
+283.                 password = StringUtils.hash(password, "MD5
+");    
+284.             }    
+285.             else if (passwordType == PasswordType.sha1) { 
+   
+286.                 password = StringUtils.hash(password, "SHA
+-1");    
+287.             }    
+288.             pstmt.setString(2, password);    
+289.    
+290.             rs = pstmt.executeQuery();    
+291.    
+292.         }    
+293.         catch (SQLException e) {    
+294.             Log.error("Exception in JDBCAuthProvider", e);
+    
+295.             throw new UserNotFoundException();    
+296.         }    
+297.         finally {    
+298.             DbConnectionManager.closeConnection(rs, pstmt,
+ con);    
+299.         }    
+300.             
+301.     }    
+302.    
+303.     /**   
+304.      * Indicates how the password is stored.   
+305.      */   
+306.     @SuppressWarnings({"UnnecessarySemicolon"})  // Suppor
+t for QDox Parser    
+307.     public enum PasswordType {    
+308.    
+309.         /**   
+310.          * The password is stored as plain text.   
+311.          */   
+312.         plain,    
+313.    
+314.         /**   
+315.          * The password is stored as a hex-encoded MD5 has
+h.   316.          */   
+317.         md5,    
+318.    
+319.         /**   
+320.          * The password is stored as a hex-encoded SHA-1 h
+ash.   
+321.          */   
+322.         sha1;    
+323.     }    
+324.    
+325.     /**   
+326.      * Checks to see if the user exists; if not, a new use
+r is created.   
+327.      *   
+328.      * @param username the username.   
+329.      */   
+330.     private static void createUser(String username) {    
+331.         // See if the user exists in the database. If not,
+ automatically create them.    
+332.         UserManager userManager = UserManager.getInstance(
+);    
+333.         try {    
+334.             userManager.getUser(username);    
+335.         }    
+336.         catch (UserNotFoundException unfe) {    
+337.             try {    
+338.                 Log.debug("JDBCAuthProvider: Automatically
+ creating new user account for " + username);    
+339.                 UserManager.getUserProvider().createUser(u
+sername, StringUtils.randomString(8),    
+340.                         null, null);    
+341.             }    
+342.             catch (UserAlreadyExistsException uaee) {    
+343.                 // Ignore.    
+344.             }    
+345.         }    
+346.     }    
+347. }   
+ 
+ 
+看以看到通过读取PASSWORDTYPE配置  
+Java代码  1. JiveGlobals.migrateProperty("jdbcAuthProvider.passwordType");  
+  
+2. 。。。。。    
+3. 。。。。。    
+4. 。。。。。    
+5. passwordType = PasswordType.plain;      
+6.         try {      
+7.             passwordType = PasswordType.valueOf(      
+8.                     JiveGlobals.getProperty("jdbcAuthProvider.p
+asswordType", "plain"));      
+9.         }      
+10.        catch (IllegalArgumentException iae) {      
+11.            Log.error(iae);      
+12.        }     
+ 
+进行密码的验证  
+Java代码  
+1. if (passwordType == PasswordType.md5) {    
+2.            password = StringUtils.hash(password, "MD5");    
+3.        }    
+4.        else if (passwordType == PasswordType.sha1) {    
+5.            password = StringUtils.hash(password, "SHA-1");    
+6.        }    
+7.        if (!password.equals(userPassword)) {    
+8.            throw new UnauthorizedException();    
+9.        }   
+ 
+ 
+ 
+这样完全可以仿照JDBCAuthProvider重新构造  
+Java代码  
+1. package org.yxsoft.openfire.plugin;    
+2.    
+3.    
+4. import org.jivesoftware.openfire.user.UserNotFoundException;    
+5. import org.jivesoftware.openfire.auth.*;    
+6. import org.jivesoftware.openfire.XMPPServer;    
+7. import org.jivesoftware.util.JiveGlobals;    8. import org.jivesoftware.util.Log;    
+9. import org.jivesoftware.util.StringUtils;    
+10.import org.jivesoftware.database.DbConnectionManager;    
+11.   
+12.import java.sql.*;    
+13.import java.security.MessageDigest;    
+14.   
+15./**   
+16. * Created by cl   
+17. * Date: 2008-9-4   
+18. * Time: 9:18:26   
+19. * 仿照JDBCAuthProvider   
+20. * 在数据库连接上 支持user/password   
+21. * 密码验证 使用bfmp的机制   
+22. */   
+23.public class BfmpAuthProvider implements AuthProvider {    
+24.    private String connectionString;    
+25.    private String user;    
+26.    private String password;    
+27.   
+28.    private String passwordSQL;    
+29.    private String setPasswordSQL;    
+30.    private PasswordType passwordType;    
+31.    private boolean allowUpdate;    
+32.   
+33.    /**   
+34.     * 初始化   
+35.     * 比JDBCAuthProvider多支持   
+36.     * JiveGlobals.migrateProperty("jdbcProvider.url");   
+37.        JiveGlobals.migrateProperty("jdbcProvider.user");   
+38.        JiveGlobals.migrateProperty("jdbcProvider.password");   
+39.     */   
+40.    public BfmpAuthProvider() {    
+41.        // Convert XML based provider setup to Database based  
+  
+42.        JiveGlobals.migrateProperty("jdbcProvider.driver");    
+43.        JiveGlobals.migrateProperty("jdbcProvider.url");    
+44.        JiveGlobals.migrateProperty("jdbcProvider.user");    
+45.        JiveGlobals.migrateProperty("jdbcProvider.password");  
+  
+46.   
+47.        JiveGlobals.migrateProperty("jdbcAuthProvider.passwordS
+QL");    48.        JiveGlobals.migrateProperty("jdbcAuthProvider.passwordT
+ype");    
+49.        JiveGlobals.migrateProperty("jdbcAuthProvider.setPasswo
+rdSQL");    
+50.        JiveGlobals.migrateProperty("jdbcAuthProvider.allowUpda
+te");    
+51.        JiveGlobals.migrateProperty("jdbcAuthProvider.passwordT
+ype");    
+52.   
+53.        // Load the JDBC driver and connection string.    
+54.        String jdbcDriver = JiveGlobals.getProperty("jdbcProvid
+er.driver");    
+55.        try {    
+56.            Class.forName(jdbcDriver).newInstance();    
+57.        }    
+58.        catch (Exception e) {    
+59.            Log.error("Unable to load JDBC driver: " + jdbcDriv
+er, e);    
+60.            return;    
+61.        }    
+62.        connectionString = JiveGlobals.getProperty("jdbcProvide
+r.url");    
+63.        user = JiveGlobals.getProperty("jdbcProvider.user");    
+64.        password = JiveGlobals.getProperty("jdbcProvider.passwo
+rd");    
+65.   
+66.        // Load SQL statements.    
+67.        passwordSQL = JiveGlobals.getProperty("jdbcAuthProvider
+.passwordSQL");    
+68.        setPasswordSQL = JiveGlobals.getProperty("jdbcAuthProvi
+der.setPasswordSQL");    
+69.   
+70.        allowUpdate = JiveGlobals.getBooleanProperty("jdbcAuthP
+rovider.allowUpdate",false);    
+71.   
+72.        passwordType = PasswordType.plain;    
+73.        try {    
+74.            passwordType = PasswordType.valueOf(    
+75.                    JiveGlobals.getProperty("jdbcAuthProvider.p
+asswordType", "plain"));    
+76.            Log.error("PasswordType:"+ passwordType);    
+77.        }    
+78.        catch (IllegalArgumentException iae) {    
+79.            Log.error(iae);    80.        }    
+81.    }    
+82.   
+83.    public boolean isPlainSupported() {    
+84.        //default    
+85.        return true;    
+86.    }    
+87.   
+88.    public boolean isDigestSupported() {    
+89.        //default    
+90.        return true;    
+91.    }    
+92.   
+93.    public void authenticate(String username, String password) 
+throws UnauthorizedException, ConnectionException, InternalUnau
+thenticatedException {    
+94.        if (username == null || password == null) {    
+95.            throw new UnauthorizedException();    
+96.        }    
+97.        Log.error(username+":"+password);    
+98.        username = username.trim().toLowerCase();    
+99.        if (username.contains("@")) {    
+100.             Log.error(username+":"+XMPPServer.getInstance(
+).getServerInfo().getXMPPDomain());    
+101.             // Check that the specified domain matches the
+ server's domain    
+102.             int index = username.indexOf("@");    
+103.             String domain = username.substring(index + 1);
+    
+104.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+105.                 username = username.substring(0, index);  
+  
+106.             } else {    
+107.                 // Unknown domain. Return authentication f
+ailed.    
+108.                 throw new UnauthorizedException();    
+109.             }    
+110.         } else {    
+111.             Log.error("user name not contains ");    
+112.         }    
+113.         String userPassword;    
+114.         try {    
+115.             userPassword = getPasswordValue(username);    116.         }    
+117.         catch (UserNotFoundException unfe) {    
+118.             throw new UnauthorizedException();    
+119.         }    
+120.         // If the user's password doesn't match the passwo
+rd passed in, authentication    
+121.         // should fail.    
+122.         if (passwordType == PasswordType.bfmp) {    
+123.             //这里BfmpMD5 就是自己的密码规则    
+124.             password = BfmpMD5(password);    
+125.         }    
+126.    
+127.         if (!password.equals(userPassword)) {    
+128.             throw new UnauthorizedException();    
+129.         }    
+130.    
+131.         // Got this far, so the user must be authorized.  
+  
+132.         //createUser(username);    
+133.     }    
+134.    
+135.     public void authenticate(String username, String token
+, String digest) throws UnauthorizedException, ConnectionExcept
+ion, InternalUnauthenticatedException {    
+136.         if (passwordType != PasswordType.plain) {    
+137.             throw new UnsupportedOperationException("Diges
+t authentication not supported for "   
+138.                     + "password type " + passwordType);    
+139.         }    
+140.         if (username == null || token == null || digest ==
+ null) {    
+141.             throw new UnauthorizedException();    
+142.         }    
+143.         username = username.trim().toLowerCase();    
+144.         if (username.contains("@")) {    
+145.             // Check that the specified domain matches the
+ server's domain    
+146.             int index = username.indexOf("@");    
+147.             String domain = username.substring(index + 1);
+    
+148.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+149.                 username = username.substring(0, index);  
+  150.             } else {    
+151.                 // Unknown domain. Return authentication f
+ailed.    
+152.                 throw new UnauthorizedException();    
+153.             }    
+154.         }    
+155.         String password;    
+156.         try {    
+157.             password = getPasswordValue(username);    
+158.         }    
+159.         catch (UserNotFoundException unfe) {    
+160.             throw new UnauthorizedException();    
+161.         }    
+162.         String anticipatedDigest = AuthFactory.createDiges
+t(token, password);    
+163.         if (!digest.equalsIgnoreCase(anticipatedDigest)) {
+    
+164.             throw new UnauthorizedException();    
+165.         }    
+166.    
+167.         // Got this far, so the user must be authorized.  
+  
+168.         //createUser(username);    
+169.     }    
+170.    
+171.     public String getPassword(String username) throws User
+NotFoundException, UnsupportedOperationException {    
+172.         if (!supportsPasswordRetrieval()) {    
+173.             throw new UnsupportedOperationException();    
+174.         }    
+175.         if (username.contains("@")) {    
+176.             // Check that the specified domain matches the
+ server's domain    
+177.             int index = username.indexOf("@");    
+178.             String domain = username.substring(index + 1);
+    
+179.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+180.                 username = username.substring(0, index);  
+  
+181.             } else {    
+182.                 // Unknown domain.    
+183.                 throw new UserNotFoundException();    
+184.             }    185.         }    
+186.         return getPasswordValue(username);    
+187.     }    
+188.    
+189.     private String getPasswordValue(String username) throw
+s UserNotFoundException {    
+190.         String password = null;    
+191.         Connection con = null;    
+192.         PreparedStatement pstmt = null;    
+193.         ResultSet rs = null;    
+194.         if (username.contains("@")) {    
+195.             // Check that the specified domain matches the
+ server's domain    
+196.             int index = username.indexOf("@");    
+197.             String domain = username.substring(index + 1);
+    
+198.             if (domain.equals(XMPPServer.getInstance().get
+ServerInfo().getXMPPDomain())) {    
+199.                 username = username.substring(0, index);  
+  
+200.             } else {    
+201.                 // Unknown domain.    
+202.                 throw new UserNotFoundException();    
+203.             }    
+204.         }    
+205.         try {    
+206.             con = DriverManager.getConnection(connectionSt
+ring, user, this.password);    
+207.             pstmt = con.prepareStatement(passwordSQL);    
+208.             pstmt.setString(1, username);    
+209.    
+210.             rs = pstmt.executeQuery();    
+211.    
+212.             // If the query had no results, the username a
+nd password    
+213.             // did not match a user record. Therefore, thr
+ow an exception.    
+214.             if (!rs.next()) {    
+215.                 throw new UserNotFoundException();    
+216.             }    
+217.             password = rs.getString(1);    
+218.         }    
+219.         catch (SQLException e) {    220.             Log.error("Exception in JDBCAuthProvider", e);
+    
+221.             throw new UserNotFoundException();    
+222.         }    
+223.         finally {    
+224.             DbConnectionManager.closeConnection(rs, pstmt,
+ con);    
+225.         }    
+226.         return password;    
+227.     }    
+228.    
+229.     public void setPassword(String username, String passwo
+rd) throws UserNotFoundException, UnsupportedOperationException
+ {    
+230.         // unsupport    
+231.     }    
+232.    
+233.     public boolean supportsPasswordRetrieval() {    
+234.         return true;    
+235.     }    
+236.    
+237.    
+238.     /**   
+239.      * Indicates how the password is stored.   
+240.      */   
+241.     @SuppressWarnings({"UnnecessarySemicolon"})  // Suppor
+t for QDox Parser    
+242.     public enum PasswordType {    
+243.    
+244.         /**   
+245.          * The password is stored as plain text.   
+246.          */   
+247.         plain,    
+248.    
+249.         /**   
+250.          * The password is stored as a bfmp passwrod.   
+251.          */   
+252.         bfmp;    
+253.     }    
+254.    
+255.     private String BfmpMD5 (String source) {    
+256.         //在这里实现你的加密机制返回生成的密码    
+257.         return "";    
+258.    259.     }    
+260.    
+261.    
+262. }   
+ 
+ 
+ 
+ 
+编译后将此class加入到lib/openfire.jar中即可  
+ 
+当然不要忘记 将系统属性中  
+provider.auth.className,改成你自已的Provider  
+*上述代码例子中是org.yxsoft.openfire.plugin.BFMPAuthProvider  
+jdbcAuthProvider.passwordType改成你自己定义的枚举值  
+*上述代码例子中是bfmp   
+ xmpp with openfire之五 插件利用Broadcast实现群 关键字: xmpp openfire 群 broadcast 插件  openfire提供了很好的插件支持,安装也非常方便。  
+ 
+下面介绍一个使用Broadcast插件实现的简单群  
+ 
+Broadcast插件是一个向用户发送广播消息的插件。  
+ 
+安装插件  
+登录openfire管理控制台插件插件管理有效的插件  
+可以看到开放源代码插件列表  
+找到Broadcast  点击右则的‘’号安装即可  
+ 
+然后到插件管理插件中  
+可以看到Broadcast已经在安装的插件列表中  
+ 
+ 
+Broadcast可以通过系统属性来进行配置  
+plugin.broadcast.serviceName  
+Broadcast的服务名如果没有设置默认的就是 "broadcast".  
+ 
+plugin.broadcast.disableGroupPermissions  
+组广播授权设为'true',允许任何用户对组中发送广播  
+设为'false'只有组成员或管理员可以向一个组中发送广播  默认值是'false'  
+ 
+plugin.broadcast.groupMembersAllowed  
+组成员广播授权,设为'true',允许组成员对组中发送广播  
+设为'false',只有管理员可以对组中发送广播  
+默认值是'true'  
+这个配置只有在plugin.broadcast.disableGroupPermissions为'false'才有
+效  
+ 
+plugin.broadcast.allowedUsers  
+指定用户广播授权设定只允许用户的成员发送广播  
+如果没有指定任何用户都可以对所有用户广播  
+指定用户的格式为完整的JID ( hety@testserver.cn)  
+ 
+ 
+我们假设有这样一个群应用的环境  
+在企业应用中所有的好友都是同事群中的成员也是所有的同事  
+任何人都可以在群中发言  
+这样broadcast的组授权设置就可以不用  
+全部使用默认设置serviceName也用默认的‘ broadcast’   
+ 
+这样就可以用下面的数据包发送一个群消息  
+发送的数据包  
+Java代码  
+1. <message from="cl@testserver.cn/xiaoe" id="xiaoeiq-8" to="all@b
+roadcast.testserver.cn" type="chat">    
+2. <body>hello group</body>    
+3. <thread>xiaoeiq-9</thread>    
+4. <x xmlns="jabber:x:event">    
+5. <offline/><composing/>    
+6. </x>    
+7. </message>   
+ 
+ 
+在此openfire服务器上的所有用户都将收到这条消息  
+ 
+ 
+而客户端实现很方便只需要判断message.to 为
+all@broadcast.testserver.cn  
+就可以将它显示在群窗口中了  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
